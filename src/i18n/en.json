@@ -1,0 +1,169 @@
+{
+  "nav": {
+    "home": "Home",
+    "catalog": "Catalog",
+    "contact": "Contact",
+    "blog": "Blog",
+    "login": "Login",
+    "register": "Register",
+    "cart": "Cart",
+    "orders": "Orders",
+    "invoices": "Invoices",
+    "account": "My Account",
+    "logout": "Logout",
+    "admin": "Admin"
+  },
+  "home": {
+    "hero_title": "Wholesale Food & Home Products",
+    "hero_subtitle": "Quality wholesale products for grocery stores, restaurants, and supermarkets",
+    "all_categories": "All Categories",
+    "search_placeholder": "Search products...",
+    "login_to_see_prices": "Login to see prices",
+    "add_to_cart": "Add to Cart",
+    "view_details": "View Details",
+    "no_products": "No products found",
+    "products_found": "{count} products found",
+    "clear_filters": "Clear filters",
+    "continue_shopping": "Continue Shopping",
+    "load_more": "Load More Products",
+    "showing_of": "Showing {shown} of {total} products",
+    "all_products": "All Products",
+    "in_stock": "In Stock",
+    "out_of_stock_badge": "Out of Stock"
+  },
+  "product": {
+    "sku": "SKU",
+    "description": "Description",
+    "tags": "Tags",
+    "unit": "Unit",
+    "stock": "Stock",
+    "in_stock": "In Stock",
+    "out_of_stock": "Out of Stock",
+    "price": "Price",
+    "add_to_cart": "Add to Cart",
+    "login_to_see_prices": "Login to see wholesale prices",
+    "related_products": "Related Products",
+    "product_not_found": "Product not found"
+  },
+  "auth": {
+    "login_title": "Login to Your Account",
+    "register_title": "Create a Wholesale Account",
+    "email": "Email",
+    "password": "Password",
+    "login_button": "Login",
+    "register_button": "Submit Registration",
+    "no_account": "Don't have an account?",
+    "has_account": "Already have an account?",
+    "contact_name": "Contact Name",
+    "company_name": "Company Name",
+    "tax_id": "Tax ID / EIN",
+    "address": "Business Address",
+    "phone": "Phone",
+    "mobile": "Mobile / Cellphone",
+    "has_whatsapp": "Do you have WhatsApp?",
+    "registration_success": "Registration submitted successfully!",
+    "pending_approval": "Your account is pending approval. We'll notify you by email once reviewed.",
+    "invalid_credentials": "Invalid email or password",
+    "forgot_password": "Forgot password?"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "continue_shopping": "Continue Shopping",
+    "confirm_clear": "Are you sure you want to clear your cart?",
+    "quantity": "Qty",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "remove": "Remove",
+    "clear_all": "Clear Cart",
+    "send_order": "Send Order",
+    "pay_now": "Pay Now",
+    "order_comments": "Order comments (optional)",
+    "order_success": "Order placed successfully!",
+    "quantity_label": "Quantity"
+  },
+  "orders": {
+    "title": "Order History",
+    "order_number": "Order #",
+    "date": "Date",
+    "status": "Status",
+    "total": "Total",
+    "no_orders": "No orders found",
+    "details": "Details"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "name": "Your Name",
+    "email": "Your Email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send Message",
+    "success": "Message sent! We'll get back to you soon.",
+    "phone_label": "Phone",
+    "email_label": "Email"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong. Please try again.",
+    "back": "Back",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "page_not_found": "Page not found",
+    "return_home": "Return to Home",
+    "try_again": "Try Again",
+    "something_went_wrong": "Something went wrong",
+    "go_home": "Go to Homepage"
+  },
+  "admin": {
+    "title": "Registrations",
+    "no_registrations": "No pending registrations",
+    "tax_id": "Tax ID",
+    "address": "Address",
+    "whatsapp": "WhatsApp",
+    "registered": "Registered",
+    "approve": "Approve",
+    "reject": "Reject",
+    "approved": "Approved",
+    "rejected": "Rejected"
+  },
+  "invoices": {
+    "title": "Invoices",
+    "no_invoices": "No invoices found",
+    "invoice": "Invoice",
+    "date": "Date",
+    "amount": "Amount",
+    "status": "Status"
+  },
+  "footer": {
+    "links": "Links",
+    "social": "Follow Us",
+    "contact": "Contact",
+    "rights": "All rights reserved."
+  },
+  "table": {
+    "product": "Product",
+    "sku": "SKU",
+    "qty": "Qty",
+    "price": "Price",
+    "line_total": "Line Total"
+  },
+  "toast": {
+    "added_to_cart": "Added to cart",
+    "order_placed": "Order placed successfully!",
+    "message_sent": "Message sent!",
+    "item_removed": "Item removed from cart",
+    "cart_cleared": "Cart cleared",
+    "error_generic": "Something went wrong. Please try again."
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "products": "Products"
+  },
+  "seo": {
+    "title": "Home Value — Wholesale Food Distribution",
+    "description": "Quality wholesale products for grocery stores, restaurants, and supermarkets."
+  }
+}
