@@ -1,4 +1,4 @@
-/** Simple, clean copy — a kid can follow it. Calls out business owners. Exact buy steps. */
+/** Simple copy with an instant hook. Calls out business owners. Exact buy steps. */
 
 export function cleanProductName(name) {
   let n = name
@@ -9,7 +9,7 @@ export function cleanProductName(name) {
 
   n = n.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
   n = n.replace(/\bLb\b/g, 'LB').replace(/\bKg\b/g, 'KG').replace(/\bOz\b/g, 'OZ');
-  if (n.length > 48) n = n.slice(0, 45) + '…';
+  if (n.length > 42) n = n.slice(0, 39) + '…';
   return n;
 }
 
@@ -31,35 +31,43 @@ export function buildReelCopy(product, category, brand) {
   const productName = cleanProductName(product.name);
   const packLine = extractPackInfo(product.name);
   const site = brand.siteDisplay || brand.website.replace(/^https?:\/\//, '');
-  const registerDisplay = brand.registerUrl.replace(/^https?:\/\//, '');
+  const siteUrl = brand.website;
+  const registerUrl = brand.registerUrl;
 
   return {
-    eyebrow: 'WHOLESALE ONLY',
+    // Scene 1 — instant hook (biggest text on screen)
+    hookLine1: 'Run a store or restaurant?',
+    hookLine2: 'We sell wholesale.',
+    hookLine3: 'Not for regular shoppers.',
+
     productName,
     packLine,
-    callout: 'Own a store, restaurant, or shop?',
-    calloutSub: 'This post is for you — not regular shoppers.',
-    benefit: 'A top seller your customers already ask for.',
+    categoryLine: `${category} · Wholesale`,
+
+    callout: 'This is for business owners.',
+    calloutSub: 'Grocery · Restaurant · Retail · Food service',
+
     steps: [
       { num: '1', text: `Go to ${site}` },
-      { num: '2', text: 'Tap Register (free account)' },
-      { num: '3', text: 'Log in → see prices → order' },
+      { num: '2', text: 'Tap Register — free' },
+      { num: '3', text: 'Log in & order' },
     ],
-    ctaButton: `Start here → ${registerDisplay}`,
+    ctaButton: `Tap link in comments 👇`,
+
+    // First comment (1 URL max, <300 chars, not all caps)
+    linkComment: `Order wholesale here 👇\n${siteUrl}\n\nFree business account — register to see prices & place orders.`,
 
     caption: [
+      `🏪 Run a store or restaurant?`,
+      '',
       `📦 ${productName}`,
-      `${packLine} · Wholesale`,
+      `${packLine} · Wholesale from Home Value`,
       '',
-      '🏪 Own a grocery, restaurant, or retail shop?',
-      'Home Value sells to businesses only — not the public.',
+      'We supply grocery stores, restaurants & shops — 2,500+ products.',
       '',
-      'How to order:',
-      `① Go to ${site}`,
-      '② Register your business (free)',
-      '③ Log in, browse 2,500+ products, see your prices, and order',
+      '👇 Link in comments to order',
       '',
-      `#wholesale #homevalue #hvhomevalue #${category.replace(/\s+/g, '').slice(0, 20)}`,
+      `#wholesale #homevalue #hvhomevalue`,
     ].join('\n'),
   };
 }

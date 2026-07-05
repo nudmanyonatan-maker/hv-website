@@ -13,6 +13,7 @@ import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
 import { pickNextProduct, markPosted } from './pick-next.mjs';
 import { uploadToCatbox } from './upload-catbox.mjs';
+import { postLinkComment } from './post-link-comment.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -124,6 +125,25 @@ if (apiKey) {
   publishPayload.publishedAt = new Date().toISOString();
   publishPayload.igMediaId = publishData?.data?.id;
   writeFileSync(publishPath, JSON.stringify(publishPayload, null, 2));
+
+  if (publishPayload.igMediaId && manifest.copy?.linkComment) {
+    console.log('Posting link in comments...');
+    try {
+      const commentId = await postLinkComment({
+        igMediaId: publishPayload.igMediaId,
+        message: manifest.copy.linkComment,
+        composioAccountId: composio.instagram.accountId,
+        apiKey,
+      });
+      publishPayload.commentId = commentId;
+      publishPayload.linkComment = manifest.copy.linkComment;
+      writeFileSync(publishPath, JSON.stringify(publishPayload, null, 2));
+      console.log('✓ Link posted in comments');
+    } catch (err) {
+      console.error('Comment failed (reel still published):', err.message);
+    }
+  }
+
   markPosted(product.productId);
   console.log('✓ Published to @hvhomevalue');
 } else {
