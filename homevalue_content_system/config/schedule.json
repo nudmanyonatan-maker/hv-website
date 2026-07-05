@@ -3,6 +3,8 @@
   "timezone": "America/New_York",
   "timesLocal": ["09:00", "12:00", "15:00", "18:00", "21:00"],
   "timesUtc": ["13:00", "16:00", "19:00", "22:00", "01:00"],
+  "productsPerReel": 3,
+  "reelsPerBatch": 3,
   "mediaType": "REELS",
   "reelDurationSec": 12,
   "sceneDurations": [3.5, 4, 4.5],

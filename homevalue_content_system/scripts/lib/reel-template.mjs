@@ -1,5 +1,5 @@
 /**
- * Reel frames v4 — HOOK FIRST, bigger product, bigger type.
+ * Reel frames — multiple products on screen at once.
  */
 
 const BASE = `
@@ -14,146 +14,102 @@ const BASE = `
   .wrap {
     width: 100%; height: 100%;
     display: flex; flex-direction: column;
-    padding: 40px 48px 48px;
+    padding: 36px 40px 44px;
   }
-  /* ── HOOK BANNER — first thing you see ── */
   .hook-banner {
     background: #B91C1C;
-    border-radius: 24px;
-    padding: 36px 40px;
+    border-radius: 22px;
+    padding: 32px 36px;
     text-align: center;
     flex-shrink: 0;
   }
-  .hook-1 {
-    font-size: 56px;
-    font-weight: 900;
-    color: #FFFFFF;
-    line-height: 1.08;
-    letter-spacing: -0.03em;
-  }
-  .hook-2 {
-    font-size: 44px;
-    font-weight: 800;
-    color: #FFE082;
-    margin-top: 12px;
-    line-height: 1.1;
-  }
-  .hook-3 {
-    font-size: 32px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.9);
-    margin-top: 8px;
-  }
-  /* ── Product — as big as possible ── */
-  .product-card {
+  .hook-1 { font-size: 52px; font-weight: 900; color: #FFF; line-height: 1.08; letter-spacing: -0.03em; }
+  .hook-2 { font-size: 40px; font-weight: 800; color: #FFE082; margin-top: 10px; }
+  .hook-3 { font-size: 28px; font-weight: 600; color: rgba(255,255,255,0.9); margin-top: 6px; }
+  .product-grid {
     flex: 1;
     min-height: 0;
-    margin: 28px 0;
+    display: grid;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .prod-card {
     background: #FAFAFA;
-    border-radius: 28px;
     border: 2px solid #EEEEEE;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
+  }
+  .prod-img {
+    flex: 1;
+    min-height: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    padding: 12px;
   }
-  .product-card img {
-    width: 96%;
-    height: 96%;
-    object-fit: contain;
-  }
-  .product-card.sm {
-    flex: none;
-    height: 560px;
-    margin: 20px 0;
-  }
-  .product-card.xs {
-    flex: none;
-    height: 440px;
-    margin: 16px 0;
-  }
-  /* ── Product label ── */
-  .name {
-    font-size: 64px;
-    font-weight: 900;
-    color: #111;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
+  .prod-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .prod-info {
+    background: #FFF;
+    padding: 14px 12px;
+    border-top: 2px solid #EEE;
     text-align: center;
   }
-  .pack {
-    font-size: 40px;
-    font-weight: 700;
-    color: #B91C1C;
-    text-align: center;
-    margin-top: 10px;
+  .prod-name { font-size: 22px; font-weight: 800; color: #111; line-height: 1.15; }
+  .prod-pack { font-size: 20px; font-weight: 700; color: #B91C1C; margin-top: 4px; }
+  .headline {
+    font-size: 38px; font-weight: 900; color: #111;
+    text-align: center; flex-shrink: 0;
   }
-  .category {
-    font-size: 30px;
-    font-weight: 600;
-    color: #888;
-    text-align: center;
-    margin-top: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  /* ── Callout ── */
   .callout-box {
-    background: #111;
-    border-radius: 24px;
-    padding: 36px 40px;
-    text-align: center;
-    flex-shrink: 0;
+    background: #111; border-radius: 22px;
+    padding: 32px 36px; text-align: center; flex-shrink: 0;
   }
-  .callout-title {
-    font-size: 44px;
-    font-weight: 900;
-    color: #FFF;
-    line-height: 1.15;
-  }
-  .callout-sub {
-    font-size: 32px;
-    font-weight: 600;
-    color: #FFE082;
-    margin-top: 12px;
-    line-height: 1.25;
-  }
-  /* ── Steps ── */
-  .steps { display: flex; flex-direction: column; gap: 16px; flex: 1; }
+  .callout-title { font-size: 40px; font-weight: 900; color: #FFF; line-height: 1.15; }
+  .callout-sub { font-size: 28px; font-weight: 600; color: #FFE082; margin-top: 10px; }
+  .steps { display: flex; flex-direction: column; gap: 14px; flex: 1; min-height: 0; }
   .step {
-    display: flex; align-items: center; gap: 20px;
-    background: #FAFAFA; border-radius: 20px;
-    padding: 22px 24px; border: 2px solid #EEE;
+    display: flex; align-items: center; gap: 18px;
+    background: #FAFAFA; border-radius: 18px;
+    padding: 20px 22px; border: 2px solid #EEE;
   }
   .step-num {
-    flex-shrink: 0; width: 64px; height: 64px;
+    flex-shrink: 0; width: 58px; height: 58px;
     background: #B91C1C; color: #fff; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 34px; font-weight: 900;
+    font-size: 30px; font-weight: 900;
   }
-  .step-text {
-    font-size: 36px; font-weight: 700; color: #111; line-height: 1.25;
-  }
+  .step-text { font-size: 32px; font-weight: 700; color: #111; line-height: 1.25; }
   .cta-btn {
     background: #B91C1C; color: #FFF; text-align: center;
-    font-size: 40px; font-weight: 900;
-    padding: 36px 24px; border-radius: 20px;
-    flex-shrink: 0; margin-top: 16px;
+    font-size: 38px; font-weight: 900;
+    padding: 32px 20px; border-radius: 18px; flex-shrink: 0; margin-top: 12px;
   }
-  .brand-tag {
-    text-align: center;
-    font-size: 28px;
-    font-weight: 700;
-    color: #999;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    flex-shrink: 0;
-    margin-bottom: 8px;
-  }
+  .mini-grid .prod-card { }
+  .mini-grid .prod-img { min-height: 200px; }
+  .mini-grid .prod-name { font-size: 18px; }
+  .mini-grid .prod-pack { font-size: 16px; }
 `;
 
-/** Scene 1: HOOK + huge product — stops the scroll */
-export function reelHtmlScene1({ copy, imageDataUrl }) {
+function productGridHtml(products, images, mini = false) {
+  const count = products.length;
+  const gridClass = count === 2 ? 'grid-2' : 'grid-3';
+  const cards = products.map((p, i) => `
+    <div class="prod-card">
+      <div class="prod-img"><img src="${images[i]}" alt="" /></div>
+      <div class="prod-info">
+        <div class="prod-name">${esc(p.name)}</div>
+        <div class="prod-pack">${esc(p.pack)}</div>
+      </div>
+    </div>`).join('');
+  return `<div class="product-grid ${gridClass}${mini ? ' mini-grid' : ''}">${cards}</div>`;
+}
+
+export function reelHtmlScene1({ copy, productImages }) {
   return `<!DOCTYPE html><html><head>
 <meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -164,28 +120,20 @@ export function reelHtmlScene1({ copy, imageDataUrl }) {
     <div class="hook-2">${esc(copy.hookLine2)}</div>
     <div class="hook-3">${esc(copy.hookLine3)}</div>
   </div>
-  <div class="product-card">
-    <img src="${imageDataUrl}" alt="" />
-  </div>
-  <div class="name">${esc(copy.productName)}</div>
-  <div class="pack">${esc(copy.packLine)}</div>
+  ${productGridHtml(copy.products, productImages)}
+  <div class="headline">${esc(copy.headline)}</div>
 </div></body></html>`;
 }
 
-/** Scene 2: Product + who this is for */
-export function reelHtmlScene2({ copy, imageDataUrl }) {
+export function reelHtmlScene2({ copy, productImages }) {
   return `<!DOCTYPE html><html><head>
 <meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
-<style>${BASE}</style></head><body>
+<style>${BASE}
+  .product-grid { flex: none; height: 680px; }
+</style></head><body>
 <div class="wrap">
-  <div class="brand-tag">Home Value · Wholesale</div>
-  <div class="product-card sm">
-    <img src="${imageDataUrl}" alt="" />
-  </div>
-  <div class="name">${esc(copy.productName)}</div>
-  <div class="pack">${esc(copy.packLine)}</div>
-  <div class="category">${esc(copy.categoryLine)}</div>
+  ${productGridHtml(copy.products, productImages)}
   <div class="callout-box">
     <div class="callout-title">${esc(copy.callout)}</div>
     <div class="callout-sub">${esc(copy.calloutSub)}</div>
@@ -193,22 +141,21 @@ export function reelHtmlScene2({ copy, imageDataUrl }) {
 </div></body></html>`;
 }
 
-/** Scene 3: How to buy + link in comments */
-export function reelHtmlScene3({ copy, imageDataUrl }) {
+export function reelHtmlScene3({ copy, productImages }) {
   const stepsHtml = copy.steps.map((s) =>
     `<div class="step"><div class="step-num">${esc(s.num)}</div><div class="step-text">${esc(s.text)}</div></div>`
   ).join('');
   return `<!DOCTYPE html><html><head>
 <meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
-<style>${BASE}</style></head><body>
+<style>${BASE}
+  .product-grid { flex: none; height: 340px; margin: 12px 0; }
+</style></head><body>
 <div class="wrap">
-  <div class="hook-banner" style="padding:28px 32px">
-    <div class="hook-1" style="font-size:44px">How to order</div>
+  <div class="hook-banner" style="padding:24px 28px">
+    <div class="hook-1" style="font-size:40px">How to order</div>
   </div>
-  <div class="product-card xs">
-    <img src="${imageDataUrl}" alt="" />
-  </div>
+  ${productGridHtml(copy.products, productImages, true)}
   <div class="steps">${stepsHtml}</div>
   <div class="cta-btn">${esc(copy.ctaButton)}</div>
 </div></body></html>`;

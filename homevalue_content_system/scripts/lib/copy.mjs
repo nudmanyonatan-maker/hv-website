@@ -1,48 +1,32 @@
-/** Simple copy with an instant hook. Calls out business owners. Exact buy steps. */
+/** Copy for Reels featuring multiple products at once. */
 
-export function cleanProductName(name) {
-  let n = name
-    .replace(/\(QTY[^)]*\)/gi, '')
-    .replace(/QTY\/CTN[^)]*\)?/gi, '')
-    .replace(/\s+/g, ' ')
-    .trim();
+import { cleanProductName, extractPackInfo } from './copy-utils.mjs';
 
-  n = n.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
-  n = n.replace(/\bLb\b/g, 'LB').replace(/\bKg\b/g, 'KG').replace(/\bOz\b/g, 'OZ');
-  if (n.length > 42) n = n.slice(0, 39) + '…';
-  return n;
-}
+export { cleanProductName, extractPackInfo };
 
-export function extractPackInfo(name) {
-  const lb = name.match(/(\d+)\s*LB\b/i);
-  if (lb) return `${lb[1]} lb case`;
-  const kg = name.match(/(\d+)\s*KG\b/i);
-  if (kg) return `${kg[1]} kg case`;
-  const ct = name.match(/(\d+)\s*CT\b/i);
-  if (ct) return `${ct[1]}-count case`;
-  const qty = name.match(/QTY\.?\/CTN\.?\s*:?\s*(\d+)/i);
-  if (qty) return `${qty[1]} per case`;
-  const pcs = name.match(/(\d+)\s*PCS/i);
-  if (pcs) return `${pcs[1]} pcs per case`;
-  return 'Sold by the case';
-}
-
-export function buildReelCopy(product, category, brand) {
-  const productName = cleanProductName(product.name);
-  const packLine = extractPackInfo(product.name);
+export function buildReelCopy(products, catMap, brand) {
   const site = brand.siteDisplay || brand.website.replace(/^https?:\/\//, '');
   const siteUrl = brand.website;
-  const registerUrl = brand.registerUrl;
+
+  const items = products.map((p) => ({
+    productId: p.productId,
+    name: cleanProductName(p.name),
+    pack: extractPackInfo(p.name),
+    category: catMap[p.categoryId] || 'Wholesale',
+    image: p.image,
+  }));
+
+  const namesList = items.map((i) => i.name).join(' · ');
+  const primaryCategory = items[0]?.category || 'Wholesale';
 
   return {
-    // Scene 1 — instant hook (biggest text on screen)
     hookLine1: 'Run a store or restaurant?',
     hookLine2: 'We sell wholesale.',
     hookLine3: 'Not for regular shoppers.',
 
-    productName,
-    packLine,
-    categoryLine: `${category} · Wholesale`,
+    products: items,
+    headline: `${items.length} products · Wholesale`,
+    namesList,
 
     callout: 'This is for business owners.',
     calloutSub: 'Grocery · Restaurant · Retail · Food service',
@@ -52,22 +36,21 @@ export function buildReelCopy(product, category, brand) {
       { num: '2', text: 'Tap Register — free' },
       { num: '3', text: 'Log in & order' },
     ],
-    ctaButton: `Tap link in comments 👇`,
+    ctaButton: 'Tap link in comments 👇',
 
-    // First comment (1 URL max, <300 chars, not all caps)
     linkComment: `Order wholesale here 👇\n${siteUrl}\n\nFree business account — register to see prices & place orders.`,
 
     caption: [
-      `🏪 Run a store or restaurant?`,
+      '🏪 Run a store or restaurant?',
       '',
-      `📦 ${productName}`,
-      `${packLine} · Wholesale from Home Value`,
+      `📦 ${items.length} wholesale picks:`,
+      ...items.map((i) => `• ${i.name} (${i.pack})`),
       '',
-      'We supply grocery stores, restaurants & shops — 2,500+ products.',
+      'Home Value — 2,500+ products for grocery, restaurants & shops.',
       '',
       '👇 Link in comments to order',
       '',
-      `#wholesale #homevalue #hvhomevalue`,
+      '#wholesale #homevalue #hvhomevalue',
     ].join('\n'),
   };
 }

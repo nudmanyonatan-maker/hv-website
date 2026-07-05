@@ -1,0 +1,74 @@
+{
+  "productIds": [
+    "119435",
+    "119338",
+    "119164"
+  ],
+  "products": [
+    {
+      "id": "119435",
+      "name": "ABU CLASSIC BASMATI RICE 10 LB"
+    },
+    {
+      "id": "119338",
+      "name": "AL HALABI ROASTED CHESTNUTS 100GX30"
+    },
+    {
+      "id": "119164",
+      "name": "AL QASR BLACK OLIVES 600 G X 12 CT"
+    }
+  ],
+  "videoPath": "content/reels/multi-3.mp4",
+  "caption": "🏪 Run a store or restaurant?\n\n📦 3 wholesale picks:\n• Abu Classic Basmati Rice 10 LB (10 lb case)\n• Al Halabi Roasted Chestnuts 100gx30 (By the case)\n• Al Qasr Black Olives 600 G X 12 Ct (12-count case)\n\nHome Value — 2,500+ products for grocery, restaurants & shops.\n\n👇 Link in comments to order\n\n#wholesale #homevalue #hvhomevalue",
+  "copy": {
+    "hookLine1": "Run a store or restaurant?",
+    "hookLine2": "We sell wholesale.",
+    "hookLine3": "Not for regular shoppers.",
+    "products": [
+      {
+        "productId": "119435",
+        "name": "Abu Classic Basmati Rice 10 LB",
+        "pack": "10 lb case",
+        "category": "Oriental Authentic Food & Drink",
+        "image": "https://app.fullvendor.com/uploads/products/77/8906111024749_0f8384.jpg"
+      },
+      {
+        "productId": "119338",
+        "name": "Al Halabi Roasted Chestnuts 100gx30",
+        "pack": "By the case",
+        "category": "Oriental Authentic Food & Drink",
+        "image": "https://app.fullvendor.com/uploads/products/77/SOCAST_c0acd6.jpg"
+      },
+      {
+        "productId": "119164",
+        "name": "Al Qasr Black Olives 600 G X 12 Ct",
+        "pack": "12-count case",
+        "category": "Oriental Authentic Food & Drink",
+        "image": "https://app.fullvendor.com/uploads/products/77/810118355363_bd576b.jpg"
+      }
+    ],
+    "headline": "3 products · Wholesale",
+    "namesList": "Abu Classic Basmati Rice 10 LB · Al Halabi Roasted Chestnuts 100gx30 · Al Qasr Black Olives 600 G X 12 Ct",
+    "callout": "This is for business owners.",
+    "calloutSub": "Grocery · Restaurant · Retail · Food service",
+    "steps": [
+      {
+        "num": "1",
+        "text": "Go to homevalue.fullvendor.com/en"
+      },
+      {
+        "num": "2",
+        "text": "Tap Register — free"
+      },
+      {
+        "num": "3",
+        "text": "Log in & order"
+      }
+    ],
+    "ctaButton": "Tap link in comments 👇",
+    "linkComment": "Order wholesale here 👇\nhttps://homevalue.fullvendor.com/en\n\nFree business account — register to see prices & place orders.",
+    "caption": "🏪 Run a store or restaurant?\n\n📦 3 wholesale picks:\n• Abu Classic Basmati Rice 10 LB (10 lb case)\n• Al Halabi Roasted Chestnuts 100gx30 (By the case)\n• Al Qasr Black Olives 600 G X 12 Ct (12-count case)\n\nHome Value — 2,500+ products for grocery, restaurants & shops.\n\n👇 Link in comments to order\n\n#wholesale #homevalue #hvhomevalue"
+  },
+  "scenes": 3,
+  "renderedAt": "2026-07-05T19:04:35.565Z"
+}

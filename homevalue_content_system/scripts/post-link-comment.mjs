@@ -4,7 +4,6 @@
 import { readFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { buildReelCopy } from './lib/copy.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -28,11 +27,6 @@ export async function postLinkComment({ igMediaId, message, composioAccountId, a
   return data?.data?.id || data?.data;
 }
 
-export function getLinkCommentMessage(brand, productName) {
-  const copy = buildReelCopy({ name: productName }, 'Wholesale', brand);
-  return copy.linkComment;
-}
-
 if (process.argv[1]?.endsWith('post-link-comment.mjs')) {
   const igMediaId = process.argv[2];
   if (!igMediaId) {
@@ -41,7 +35,7 @@ if (process.argv[1]?.endsWith('post-link-comment.mjs')) {
   }
   const brand = JSON.parse(readFileSync(join(ROOT, 'config/brand.json'), 'utf8'));
   const composio = JSON.parse(readFileSync(join(ROOT, 'config/composio.json'), 'utf8'));
-  const message = getLinkCommentMessage(brand, 'Wholesale');
+  const message = `Order wholesale here 👇\n${brand.website}\n\nFree business account — register to see prices & place orders.`;
   const id = await postLinkComment({
     igMediaId,
     message,

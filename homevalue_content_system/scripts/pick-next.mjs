@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Pick next product for posting — rotates through in-stock catalog, never repeats until cycle complete.
+ * Pick next N products for a multi-product Reel.
  */
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
@@ -10,11 +10,10 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const STATE_PATH = join(ROOT, 'content/state/rotation.json');
-const catalog = JSON.parse(readFileSync(join(ROOT, 'catalog/products.json'), 'utf8'));
 
-const formats = [
-  'product_spotlight', 'did_you_know', 'case_size_callout', 'buyer_tip', 'in_stock_now',
-];
+function loadCatalog() {
+  return JSON.parse(readFileSync(join(ROOT, 'catalog/products.json'), 'utf8'));
+}
 
 function loadState() {
   if (!existsSync(STATE_PATH)) {
@@ -28,36 +27,45 @@ function saveState(state) {
   writeFileSync(STATE_PATH, JSON.stringify(state, null, 2));
 }
 
-export function pickNextProduct() {
+export function pickNextProducts(count = 3) {
+  const catalog = loadCatalog();
   const state = loadState();
   const eligible = catalog.priorityProducts.filter((p) => p.inStock && p.hasImage);
-  const remaining = eligible.filter((p) => !state.postedIds.includes(String(p.productId)));
+  let remaining = eligible.filter((p) => !state.postedIds.includes(String(p.productId)));
 
-  let pool = remaining.length > 0 ? remaining : eligible;
-  if (remaining.length === 0 && eligible.length > 0) {
+  if (remaining.length < count) {
     state.postedIds = [];
     state.cycle += 1;
-    pool = eligible;
+    remaining = eligible;
   }
 
-  const idx = state.postedIds.length % pool.length;
-  const product = { ...pool[idx] };
-  const format = formats[state.postedIds.length % formats.length];
-  product._format = format;
-
-  return { product, state, category: catalog.categories.find((c) => String(c.id) === String(product.categoryId))?.name };
+  const products = remaining.slice(0, count).map((p) => ({ ...p }));
+  return { products, state, catalog };
 }
 
-export function markPosted(productId) {
+export function markPosted(productIds) {
   const state = loadState();
-  if (!state.postedIds.includes(String(productId))) {
-    state.postedIds.push(String(productId));
+  for (const id of productIds) {
+    const s = String(id);
+    if (!state.postedIds.includes(s)) state.postedIds.push(s);
   }
   state.lastPostedAt = new Date().toISOString();
   saveState(state);
 }
 
+/** @deprecated use pickNextProducts */
+export function pickNextProduct() {
+  const { products, catalog } = pickNextProducts(1);
+  const product = products[0];
+  return {
+    product,
+    category: catalog.categories.find((c) => String(c.id) === String(product.categoryId))?.name,
+  };
+}
+
 if (process.argv[1]?.endsWith('pick-next.mjs')) {
-  const { product } = pickNextProduct();
-  console.log(JSON.stringify(product, null, 2));
+  const countArg = process.argv.indexOf('--count');
+  const count = countArg >= 0 ? parseInt(process.argv[countArg + 1], 10) : 3;
+  const { products } = pickNextProducts(count);
+  console.log(JSON.stringify(products, null, 2));
 }

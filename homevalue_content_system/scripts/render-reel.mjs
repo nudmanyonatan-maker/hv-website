@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
- * Render a clean 3-scene Instagram Reel.
- * Scene 1: Product hero · Scene 2: Business callout · Scene 3: How to buy (3 steps)
+ * Render a 3-scene Reel with MULTIPLE products on screen at once.
+ * Usage: node scripts/render-reel.mjs [--product-ids id1,id2,id3] [--output path.mp4]
+ * Without --product-ids, picks next batch from rotation (default 3 products).
  */
 
 import { readFileSync, writeFileSync, mkdirSync, unlinkSync } from 'fs';
@@ -11,6 +12,7 @@ import { execSync } from 'child_process';
 import puppeteer from 'puppeteer';
 import { buildReelCopy } from './lib/copy.mjs';
 import { sceneRenderers } from './lib/reel-template.mjs';
+import { pickNextProducts } from './pick-next.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -18,33 +20,40 @@ const ROOT = join(__dirname, '..');
 const brand = JSON.parse(readFileSync(join(ROOT, 'config/brand.json'), 'utf8'));
 const schedule = JSON.parse(readFileSync(join(ROOT, 'config/schedule.json'), 'utf8'));
 const catalog = JSON.parse(readFileSync(join(ROOT, 'catalog/products.json'), 'utf8'));
-const catMap = Object.fromEntries(catalog.categories.map((c) => [c.id, c.name]));
+const catMap = Object.fromEntries(catalog.categories.map((c) => [String(c.id), c.name]));
 
-const productIdArg = process.argv.indexOf('--product-id');
+const idsArg = process.argv.indexOf('--product-ids');
 const outputArg = process.argv.indexOf('--output');
-const productId = productIdArg >= 0 ? process.argv[productIdArg + 1] : null;
+const perReel = schedule.productsPerReel || 3;
 
-if (!productId) {
-  console.error('Usage: node scripts/render-reel.mjs --product-id <id>');
-  process.exit(1);
+let products;
+if (idsArg >= 0) {
+  const ids = process.argv[idsArg + 1].split(',').map((s) => s.trim());
+  products = ids.map((id) => {
+    const p = catalog.products.find((x) => String(x.productId) === id)
+      || catalog.priorityProducts.find((x) => String(x.productId) === id);
+    if (!p?.image) throw new Error(`Product ${id} not found or missing image`);
+    return p;
+  });
+} else {
+  ({ products } = pickNextProducts(perReel));
 }
 
-const raw = catalog.products.find((p) => String(p.productId) === String(productId))
-  || catalog.priorityProducts.find((p) => String(p.productId) === String(productId));
+const batchId = products.map((p) => p.productId).join('-');
+const copy = buildReelCopy(products, catMap, brand);
 
-if (!raw?.image) {
-  console.error(`Product ${productId} not found or missing image`);
-  process.exit(1);
-}
+console.log(`Rendering Reel with ${products.length} products:`);
+products.forEach((p) => console.log(`  • ${p.name}`));
 
-const category = catMap[raw.categoryId] || 'Wholesale';
-const copy = buildReelCopy(raw, category, brand);
-
-console.log('Downloading product image...');
-const imgRes = await fetch(raw.image);
-const imgBuf = Buffer.from(await imgRes.arrayBuffer());
-const mime = imgRes.headers.get('content-type') || 'image/jpeg';
-const imageDataUrl = `data:${mime};base64,${imgBuf.toString('base64')}`;
+console.log('Downloading product images...');
+const productImages = await Promise.all(
+  products.map(async (p) => {
+    const res = await fetch(p.image);
+    const buf = Buffer.from(await res.arrayBuffer());
+    const mime = res.headers.get('content-type') || 'image/jpeg';
+    return `data:${mime};base64,${buf.toString('base64')}`;
+  })
+);
 
 const tmpDir = join(ROOT, 'content/tmp');
 const outDir = join(ROOT, 'content/reels');
@@ -53,10 +62,10 @@ mkdirSync(outDir, { recursive: true });
 
 const outputPath = outputArg >= 0
   ? process.argv[outputArg + 1]
-  : join(outDir, `reel-${productId}-${Date.now()}.mp4`);
+  : join(outDir, `reel-${batchId}-${Date.now()}.mp4`);
 
+const sceneDurations = schedule.sceneDurations || [3.5, 4, 4.5];
 const framePaths = [];
-const sceneDurations = [3.5, 4, 4.5]; // seconds per scene
 
 console.log('Rendering 3 scenes...');
 const browser = await puppeteer.launch({
@@ -65,9 +74,9 @@ const browser = await puppeteer.launch({
 });
 
 for (const scene of [1, 2, 3]) {
-  const html = sceneRenderers[scene]({ brand, copy, imageDataUrl });
-  const htmlPath = join(tmpDir, `scene${scene}-${productId}.html`);
-  const framePath = join(tmpDir, `scene${scene}-${productId}.png`);
+  const html = sceneRenderers[scene]({ brand, copy, productImages });
+  const htmlPath = join(tmpDir, `scene${scene}-${batchId}.html`);
+  const framePath = join(tmpDir, `scene${scene}-${batchId}.png`);
   writeFileSync(htmlPath, html);
 
   const page = await browser.newPage();
@@ -82,9 +91,8 @@ for (const scene of [1, 2, 3]) {
 }
 await browser.close();
 
-// Build video: static frames + smooth crossfades (no ugly zoom)
 const clipPaths = framePaths.map((fp, i) => {
-  const clip = join(tmpDir, `clip${i}-${productId}.mp4`);
+  const clip = join(tmpDir, `clip${i}-${batchId}.mp4`);
   execSync(
     `ffmpeg -y -loop 1 -i "${fp}" -t ${sceneDurations[i]} ` +
     `-vf "scale=1080:1920:flags=lanczos,format=yuv420p" ` +
@@ -107,7 +115,6 @@ execSync(
   { stdio: 'inherit' }
 );
 
-// Mix background music
 const musicCfg = schedule.backgroundMusic || { file: 'assets/bg-music.mp3', volume: 0.28 };
 const musicPath = join(ROOT, musicCfg.file);
 const vol = musicCfg.volume ?? 0.28;
@@ -121,13 +128,11 @@ execSync(
   `-map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k -shortest "${outputPath}"`,
   { stdio: 'inherit' }
 );
-
 try { unlinkSync(silentPath); } catch { /* ok */ }
 
 const manifest = {
-  productId: raw.productId,
-  productName: raw.name,
-  category,
+  productIds: products.map((p) => p.productId),
+  products: products.map((p) => ({ id: p.productId, name: p.name })),
   videoPath: outputPath,
   caption: copy.caption,
   copy,
@@ -135,5 +140,4 @@ const manifest = {
   renderedAt: new Date().toISOString(),
 };
 writeFileSync(outputPath.replace('.mp4', '.json'), JSON.stringify(manifest, null, 2));
-
 console.log(`✓ Reel saved: ${outputPath}`);
