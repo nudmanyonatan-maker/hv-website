@@ -1,0 +1,14 @@
+[
+  { "id": "track-01", "name": "Upbeat Corporate 1", "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", "startSec": 0 },
+  { "id": "track-02", "name": "Upbeat Corporate 2", "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", "startSec": 8 },
+  { "id": "track-03", "name": "Smooth Retail 1", "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3", "startSec": 12 },
+  { "id": "track-04", "name": "Smooth Retail 2", "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3", "startSec": 5 },
+  { "id": "track-05", "name": "Light Energy 1", "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3", "startSec": 20 },
+  { "id": "track-06", "name": "Light Energy 2", "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3", "startSec": 0 },
+  { "id": "track-07", "name": "Modern Wholesale 1", "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3", "startSec": 15 },
+  { "id": "track-08", "name": "Modern Wholesale 2", "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3", "startSec": 10 },
+  { "id": "track-09", "name": "Clean Business 1", "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3", "startSec": 6 },
+  { "id": "track-10", "name": "Clean Business 2", "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3", "startSec": 18 },
+  { "id": "track-11", "name": "Fresh Market 1", "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3", "startSec": 4 },
+  { "id": "track-12", "name": "Fresh Market 2", "source": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3", "startSec": 22 }
+]

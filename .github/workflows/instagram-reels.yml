@@ -30,6 +30,10 @@ jobs:
         working-directory: homevalue_content_system
         run: npm ci
 
+      - name: Setup music library
+        working-directory: homevalue_content_system
+        run: node scripts/setup-music.mjs
+
       - name: Sync catalog
         working-directory: homevalue_content_system
         env:

@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "sync": "node scripts/sync-catalog.mjs",
+    "setup:music": "node scripts/setup-music.mjs",
     "generate": "node scripts/generate-content.mjs",
     "render": "node scripts/render-reel.mjs",
     "publish": "node scripts/publish-next.mjs",

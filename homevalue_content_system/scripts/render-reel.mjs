@@ -13,6 +13,7 @@ import puppeteer from 'puppeteer';
 import { buildReelCopy } from './lib/copy.mjs';
 import { sceneRenderers } from './lib/reel-template.mjs';
 import { pickNextProducts } from './pick-next.mjs';
+import { pickNextMusic } from './pick-next-music.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -115,13 +116,13 @@ execSync(
   { stdio: 'inherit' }
 );
 
-const musicCfg = schedule.backgroundMusic || { file: 'assets/bg-music.mp3', volume: 0.28 };
-const musicPath = join(ROOT, musicCfg.file);
+const musicCfg = schedule.backgroundMusic || { volume: 0.28, fadeOutSec: 1.5 };
+const { track: musicTrack, filePath: musicPath } = pickNextMusic();
 const vol = musicCfg.volume ?? 0.28;
 const fadeOut = musicCfg.fadeOutSec ?? 1.5;
 const videoDur = totalDur - fade;
 
-console.log('Adding background music...');
+console.log(`Adding background music: ${musicTrack.name} (${musicTrack.id})...`);
 execSync(
   `ffmpeg -y -i "${silentPath}" -stream_loop -1 -i "${musicPath}" ` +
   `-filter_complex "[1:a]volume=${vol},afade=t=in:st=0:d=0.5,afade=t=out:st=${videoDur - fadeOut}:d=${fadeOut}[a]" ` +
@@ -136,6 +137,7 @@ const manifest = {
   videoPath: outputPath,
   caption: copy.caption,
   copy,
+  music: { id: musicTrack.id, name: musicTrack.name },
   scenes: 3,
   renderedAt: new Date().toISOString(),
 };
