@@ -13,7 +13,9 @@ Or add manually in **GitHub → Settings → Secrets and variables → Actions**
 | Secret | Where to get it |
 |---|---|
 | `FULLVENDOR_TOKEN` | FullVendor admin → API key |
-| `COMPOSIO_API_KEY` | [app.composio.dev](https://app.composio.dev) → Settings → API Keys |
+| `COMPOSIO_API_KEY` | [app.composio.dev](https://app.composio.dev) → **Settings → Project Settings → API Keys** |
+
+**Important:** Use the **Project API key** (starts with `ak_`), NOT the MCP Consumer key (`ck_`). GitHub Actions calls `backend.composio.dev` which requires `ak_`.
 
 ## After secrets are set
 

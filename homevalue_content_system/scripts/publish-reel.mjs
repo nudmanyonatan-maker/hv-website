@@ -63,7 +63,14 @@ async function composioExecute(toolSlug, args) {
       arguments: args,
     }),
   });
-  return res.json();
+  const data = await res.json();
+  if (data?.error?.code === 10401 || data?.error?.status === 401) {
+    const hint = apiKey.startsWith('ck_')
+      ? '\n\nYou pasted a Consumer/MCP key (ck_…). GitHub Actions needs a Project API key (ak_…) from composio.dev → Settings → Project Settings → API Keys.'
+      : '\n\nCheck COMPOSIO_API_KEY in GitHub Secrets — get a Project API key (ak_…) from composio.dev.';
+    console.error(`Composio auth failed:${hint}`);
+  }
+  return data;
 }
 
 console.log('Creating Reel container...');
