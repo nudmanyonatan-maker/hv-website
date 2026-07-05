@@ -34,6 +34,7 @@ jobs:
         run: node scripts/setup-music.mjs
 
       - name: Sync catalog
+        if: ${{ secrets.FULLVENDOR_TOKEN != '' }}
         working-directory: homevalue_content_system
         env:
           FULLVENDOR_TOKEN: ${{ secrets.FULLVENDOR_TOKEN }}
@@ -42,6 +43,5 @@ jobs:
       - name: Publish next reel
         working-directory: homevalue_content_system
         env:
-          FULLVENDOR_TOKEN: ${{ secrets.FULLVENDOR_TOKEN }}
           COMPOSIO_API_KEY: ${{ secrets.COMPOSIO_API_KEY }}
         run: node scripts/publish-next.mjs
