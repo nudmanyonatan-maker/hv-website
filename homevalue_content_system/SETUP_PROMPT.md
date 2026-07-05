@@ -50,10 +50,10 @@ Run: `node scripts/sync-catalog.mjs` then `node scripts/generate-content.mjs`
 - Speak to store owners and restaurant buyers
 
 ### Instagram auth
-Follow `IG_AUTH_GUIDE.md` — use Composio:
-1. I'll click Authorize when the OAuth popup appears
-2. Connect the Home Value Business IG account linked to our Facebook Page
-3. Verify with a test draft post before going live
+**Already connected via Composio** — use account `instagram_lovely-tolan` (@hvhomevalue).
+**NEVER use** `instagram_story-algid` (Vantage / @vantagepeptide).
+
+See `config/composio.json` for pinned account IDs.
 
 ### Scheduling
 Set up two scheduled tasks:

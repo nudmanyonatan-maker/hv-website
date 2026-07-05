@@ -1,0 +1,44 @@
+name: Home Value Instagram Reels
+
+on:
+  schedule:
+    # 5× daily — 9am, 12pm, 3pm, 6pm, 9pm Eastern (UTC)
+    - cron: '0 13 * * *'
+    - cron: '0 16 * * *'
+    - cron: '0 19 * * *'
+    - cron: '0 22 * * *'
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  publish-reel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Chrome for Puppeteer
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
+      - name: Install dependencies
+        working-directory: homevalue_content_system
+        run: npm ci
+
+      - name: Sync catalog
+        working-directory: homevalue_content_system
+        env:
+          FULLVENDOR_TOKEN: ${{ secrets.FULLVENDOR_TOKEN }}
+        run: node scripts/sync-catalog.mjs
+
+      - name: Publish next reel
+        working-directory: homevalue_content_system
+        env:
+          FULLVENDOR_TOKEN: ${{ secrets.FULLVENDOR_TOKEN }}
+          COMPOSIO_API_KEY: ${{ secrets.COMPOSIO_API_KEY }}
+        run: node scripts/publish-next.mjs

@@ -15,14 +15,48 @@ node scripts/sync-catalog.mjs      # ~45s — pulls 2,502 SKUs
 node scripts/generate-content.mjs    # generates post queue
 ```
 
-## Instagram auth (the one manual step)
+## Instagram auth (already connected)
 
-See **[IG_AUTH_GUIDE.md](./IG_AUTH_GUIDE.md)** — summary:
+**@hvhomevalue** is live on Composio (`instagram_lovely-tolan`). Never use Vantage (`instagram_story-algid`).
 
-1. Convert IG to **Business** account, link to Facebook Page
-2. Open Claude Code on your Mac → paste **SETUP_PROMPT.md**
-3. Click **Authorize** when Composio OAuth popup appears
-4. Done — scheduler handles daily posts
+See **[IG_AUTH_GUIDE.md](./IG_AUTH_GUIDE.md)** for account details.
+
+## Automated schedule — 5 Reels/day
+
+| Time (ET) | UTC cron |
+|---|---|
+| 9:00 AM | 13:00 |
+| 12:00 PM | 16:00 |
+| 3:00 PM | 19:00 |
+| 6:00 PM | 22:00 |
+| 9:00 PM | 01:00 |
+
+GitHub Actions workflow: `.github/workflows/instagram-reels.yml`
+
+**Required secrets:** `FULLVENDOR_TOKEN`, `COMPOSIO_API_KEY`
+
+Each post:
+- Picks a different in-stock product (rotation state in `content/state/rotation.json`)
+- Renders a professional Reel — product image top, text panel bottom, **no overlap**
+- Includes valuable B2B context + wholesale registration CTA
+- Publishes to @hvhomevalue only
+
+## Reel layout
+
+```
+┌─────────────────────────┐
+│  Home Value    [BADGE]  │  ← brand header
+├─────────────────────────┤
+│                         │
+│     PRODUCT IMAGE       │  ← image zone (never overlaps text)
+│                         │
+├─────────────────────────┤
+│  Product name           │
+│  Case pack info         │  ← text panel
+│  Buyer context          │
+│  [Register for pricing] │  ← CTA bar
+└─────────────────────────┘
+```
 
 ## What's reusable vs. per-brand
 
