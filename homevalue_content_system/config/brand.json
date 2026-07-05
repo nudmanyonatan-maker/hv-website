@@ -1,0 +1,23 @@
+{
+  "name": "Home Value",
+  "legalName": "Home Value LLC",
+  "handle": "@FILL_IN_IG_HANDLE",
+  "website": "https://hv-website-phi.vercel.app",
+  "registerUrl": "https://hv-website-phi.vercel.app/en/register",
+  "loginUrl": "https://hv-website-phi.vercel.app/en/login",
+  "colors": {
+    "primary": "#b91c1c",
+    "primaryHover": "#991b1b",
+    "background": "#FAFAF8",
+    "card": "#FFFFFF",
+    "text": "#1a1a1a",
+    "textMuted": "#6b7280"
+  },
+  "logo": "../public/logo.png",
+  "tagline": "Wholesale food & home products for grocery stores, restaurants, and supermarkets",
+  "voice": {
+    "tone": "professional, practical, buyer-focused",
+    "avoid": ["consumer hype", "public pricing", "discount language", "health claims"],
+    "alwaysInclude": "CTA to register or login for wholesale pricing"
+  }
+}
