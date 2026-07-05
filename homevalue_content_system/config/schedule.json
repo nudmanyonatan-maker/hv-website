@@ -5,6 +5,7 @@
   "timesUtc": ["13:00", "16:00", "19:00", "22:00", "01:00"],
   "mediaType": "REELS",
   "reelDurationSec": 12,
+  "sceneDurations": [3.5, 4, 4.5],
   "composioAccountId": "instagram_lovely-tolan",
   "igUserId": "27741817182104982"
 }

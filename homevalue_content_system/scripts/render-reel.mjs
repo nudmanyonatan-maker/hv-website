@@ -1,18 +1,16 @@
 #!/usr/bin/env node
 /**
- * Render a professional Instagram Reel MP4.
- * Layout: header → product image (top zone) → text panel (bottom) — no overlap.
- *
- * Usage: node scripts/render-reel.mjs --product-id 119435 [--output path.mp4]
+ * Render a clean 3-scene Instagram Reel.
+ * Scene 1: Product hero · Scene 2: Business callout · Scene 3: How to buy (3 steps)
  */
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
 import puppeteer from 'puppeteer';
 import { buildReelCopy } from './lib/copy.mjs';
-import { reelHtml } from './lib/reel-template.mjs';
+import { sceneRenderers } from './lib/reel-template.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -34,7 +32,7 @@ if (!productId) {
 const raw = catalog.products.find((p) => String(p.productId) === String(productId))
   || catalog.priorityProducts.find((p) => String(p.productId) === String(productId));
 
-if (!raw || !raw.image) {
+if (!raw?.image) {
   console.error(`Product ${productId} not found or missing image`);
   process.exit(1);
 }
@@ -48,40 +46,63 @@ const imgBuf = Buffer.from(await imgRes.arrayBuffer());
 const mime = imgRes.headers.get('content-type') || 'image/jpeg';
 const imageDataUrl = `data:${mime};base64,${imgBuf.toString('base64')}`;
 
-const html = reelHtml({ brand, copy, imageDataUrl });
 const tmpDir = join(ROOT, 'content/tmp');
 const outDir = join(ROOT, 'content/reels');
 mkdirSync(tmpDir, { recursive: true });
 mkdirSync(outDir, { recursive: true });
 
-const htmlPath = join(tmpDir, `reel-${productId}.html`);
-const framePath = join(tmpDir, `frame-${productId}.png`);
 const outputPath = outputArg >= 0
   ? process.argv[outputArg + 1]
   : join(outDir, `reel-${productId}-${Date.now()}.mp4`);
 
-writeFileSync(htmlPath, html);
+const framePaths = [];
+const sceneDurations = [3.5, 4, 4.5]; // seconds per scene
 
-console.log('Rendering frame with Puppeteer...');
+console.log('Rendering 3 scenes...');
 const browser = await puppeteer.launch({
   headless: true,
-  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  args: ['--no-sandbox', '--disable-setuid-sandbox', '--font-render-hinting=none'],
 });
-const page = await browser.newPage();
-await page.setViewport({ width: 1080, height: 1920, deviceScaleFactor: 1 });
-await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle0', timeout: 30000 });
-await page.screenshot({ path: framePath, type: 'png' });
+
+for (const scene of [1, 2, 3]) {
+  const html = sceneRenderers[scene]({ brand, copy, imageDataUrl });
+  const htmlPath = join(tmpDir, `scene${scene}-${productId}.html`);
+  const framePath = join(tmpDir, `scene${scene}-${productId}.png`);
+  writeFileSync(htmlPath, html);
+
+  const page = await browser.newPage();
+  await page.setViewport({ width: 1080, height: 1920, deviceScaleFactor: 2 });
+  await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle0', timeout: 30000 });
+  await page.evaluate(() => document.fonts.ready);
+  await new Promise((r) => setTimeout(r, 400));
+  await page.screenshot({ path: framePath, type: 'png' });
+  await page.close();
+  framePaths.push(framePath);
+  console.log(`  ✓ Scene ${scene}`);
+}
 await browser.close();
 
-const duration = schedule.reelDurationSec || 12;
-console.log(`Encoding ${duration}s Reel with subtle motion...`);
+// Build video: static frames + smooth crossfades (no ugly zoom)
+const clipPaths = framePaths.map((fp, i) => {
+  const clip = join(tmpDir, `clip${i}-${productId}.mp4`);
+  execSync(
+    `ffmpeg -y -loop 1 -i "${fp}" -t ${sceneDurations[i]} ` +
+    `-vf "scale=1080:1920:flags=lanczos,format=yuv420p" ` +
+    `-c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -r 30 "${clip}"`,
+    { stdio: 'pipe' }
+  );
+  return clip;
+});
 
-// Ken Burns zoom on full frame — subtle, professional
+const totalDur = sceneDurations.reduce((a, b) => a + b, 0);
+const fade = 0.4;
+let filter = `[0:v][1:v]xfade=transition=fade:duration=${fade}:offset=${sceneDurations[0] - fade}[v01];`;
+filter += `[v01][2:v]xfade=transition=fade:duration=${fade}:offset=${sceneDurations[0] + sceneDurations[1] - fade * 2}[vout]`;
+
 execSync(
-  `ffmpeg -y -loop 1 -i "${framePath}" ` +
-  `-vf "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,` +
-  `zoompan=z='min(zoom+0.0008,1.08)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=${duration * 30}:s=1080x1920:fps=30" ` +
-  `-c:v libx264 -pix_fmt yuv420p -t ${duration} -movflags +faststart "${outputPath}"`,
+  `ffmpeg -y -i "${clipPaths[0]}" -i "${clipPaths[1]}" -i "${clipPaths[2]}" ` +
+  `-filter_complex "${filter}" -map "[vout]" ` +
+  `-c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -movflags +faststart -t ${totalDur - fade} "${outputPath}"`,
   { stdio: 'inherit' }
 );
 
@@ -92,10 +113,9 @@ const manifest = {
   videoPath: outputPath,
   caption: copy.caption,
   copy,
+  scenes: 3,
   renderedAt: new Date().toISOString(),
 };
-const manifestPath = outputPath.replace('.mp4', '.json');
-writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
+writeFileSync(outputPath.replace('.mp4', '.json'), JSON.stringify(manifest, null, 2));
 
 console.log(`✓ Reel saved: ${outputPath}`);
-console.log(`✓ Manifest: ${manifestPath}`);

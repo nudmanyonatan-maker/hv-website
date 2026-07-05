@@ -41,22 +41,19 @@ Each post:
 - Includes valuable B2B context + wholesale registration CTA
 - Publishes to @hvhomevalue only
 
-## Reel layout
+## Reel format (v2 — clean 3-scene)
 
-```
-┌─────────────────────────┐
-│  Home Value    [BADGE]  │  ← brand header
-├─────────────────────────┤
-│                         │
-│     PRODUCT IMAGE       │  ← image zone (never overlaps text)
-│                         │
-├─────────────────────────┤
-│  Product name           │
-│  Case pack info         │  ← text panel
-│  Buyer context          │
-│  [Register for pricing] │  ← CTA bar
-└─────────────────────────┘
-```
+Each Reel is **12 seconds**, 3 scenes with smooth fades:
+
+| Scene | What the viewer sees |
+|---|---|
+| **1** | Product hero + "WHOLESALE ONLY" + name & case size |
+| **2** | Product + **"Own a store, restaurant, or shop?"** callout |
+| **3** | Numbered steps: ① Visit site ② Register ③ Login & order + big red CTA button |
+
+- White background, lots of space — nothing overlaps the product
+- Simple words a kid could follow
+- Every post calls out **business owners** and shows **exactly how to buy**
 
 ## What's reusable vs. per-brand
 
