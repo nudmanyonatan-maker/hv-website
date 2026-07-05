@@ -3,9 +3,10 @@
   "legalName": "Home Value LLC",
   "handle": "@hvhomevalue",
   "instagramUrl": "https://instagram.com/hvhomevalue",
-  "website": "https://hv-website-phi.vercel.app",
-  "registerUrl": "https://hv-website-phi.vercel.app/en/register",
-  "loginUrl": "https://hv-website-phi.vercel.app/en/login",
+  "website": "https://homevalue.fullvendor.com/en",
+  "registerUrl": "https://homevalue.fullvendor.com/en/register",
+  "loginUrl": "https://homevalue.fullvendor.com/en/login",
+  "siteDisplay": "homevalue.fullvendor.com/en",
   "colors": {
     "primary": "#b91c1c",
     "primaryHover": "#991b1b",

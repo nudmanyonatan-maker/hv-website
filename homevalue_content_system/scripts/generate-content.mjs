@@ -40,7 +40,8 @@ function shortName(name) {
 function generateScript(product, format) {
   const caseSize = extractCaseSize(product.name);
   const category = catMap[product.categoryId] || 'Wholesale';
-  const cta = 'Register for wholesale pricing → hv-website-phi.vercel.app/en/register';
+  const site = brand.siteDisplay || brand.website.replace(/^https?:\/\//, '');
+  const cta = `Register for wholesale pricing → ${site}/register`;
 
   switch (format.id) {
     case 'product_spotlight':

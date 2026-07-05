@@ -6,6 +6,12 @@
   "mediaType": "REELS",
   "reelDurationSec": 12,
   "sceneDurations": [3.5, 4, 4.5],
+  "backgroundMusic": {
+    "file": "assets/bg-music.mp3",
+    "volume": 0.28,
+    "fadeInSec": 0.5,
+    "fadeOutSec": 1.5
+  },
   "composioAccountId": "instagram_lovely-tolan",
   "igUserId": "27741817182104982"
 }

@@ -4,7 +4,7 @@
  * Scene 1: Product hero · Scene 2: Business callout · Scene 3: How to buy (3 steps)
  */
 
-import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, unlinkSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
@@ -99,12 +99,30 @@ const fade = 0.4;
 let filter = `[0:v][1:v]xfade=transition=fade:duration=${fade}:offset=${sceneDurations[0] - fade}[v01];`;
 filter += `[v01][2:v]xfade=transition=fade:duration=${fade}:offset=${sceneDurations[0] + sceneDurations[1] - fade * 2}[vout]`;
 
+const silentPath = outputPath.replace('.mp4', '-silent.mp4');
 execSync(
   `ffmpeg -y -i "${clipPaths[0]}" -i "${clipPaths[1]}" -i "${clipPaths[2]}" ` +
   `-filter_complex "${filter}" -map "[vout]" ` +
-  `-c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -movflags +faststart -t ${totalDur - fade} "${outputPath}"`,
+  `-c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -movflags +faststart -t ${totalDur - fade} "${silentPath}"`,
   { stdio: 'inherit' }
 );
+
+// Mix background music
+const musicCfg = schedule.backgroundMusic || { file: 'assets/bg-music.mp3', volume: 0.28 };
+const musicPath = join(ROOT, musicCfg.file);
+const vol = musicCfg.volume ?? 0.28;
+const fadeOut = musicCfg.fadeOutSec ?? 1.5;
+const videoDur = totalDur - fade;
+
+console.log('Adding background music...');
+execSync(
+  `ffmpeg -y -i "${silentPath}" -stream_loop -1 -i "${musicPath}" ` +
+  `-filter_complex "[1:a]volume=${vol},afade=t=in:st=0:d=0.5,afade=t=out:st=${videoDur - fadeOut}:d=${fadeOut}[a]" ` +
+  `-map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k -shortest "${outputPath}"`,
+  { stdio: 'inherit' }
+);
+
+try { unlinkSync(silentPath); } catch { /* ok */ }
 
 const manifest = {
   productId: raw.productId,

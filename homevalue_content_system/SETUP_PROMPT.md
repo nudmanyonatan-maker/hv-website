@@ -9,7 +9,7 @@ Fill in the **6 blanks** below, then paste this entire file into a fresh Claude 
 ```
 BRAND_NAME=Home Value
 IG_HANDLE=@hvhomevalue
-WEBSITE=https://hv-website-phi.vercel.app
+WEBSITE=https://homevalue.fullvendor.com/en
 WHAT_THEY_SELL=Wholesale food, cookware, home goods, and oriental authentic products for grocery stores, restaurants, and supermarkets (B2B — login required for pricing)
 BRAND_COLORS=primary #b91c1c, background #FAFAF8, text #1a1a1a
 HOSTING=no server — use catbox (free)
@@ -31,8 +31,8 @@ You are setting up the Home Value Instagram content system. The template lives a
 ### Brand
 - Name: **Home Value** (Home Value LLC)
 - IG: **@FILL_IN_HANDLE**
-- Website: **https://hv-website-phi.vercel.app**
-- Register CTA: **https://hv-website-phi.vercel.app/en/register**
+- Website: **https://homevalue.fullvendor.com/en**
+- Register CTA: **https://homevalue.fullvendor.com/en/register**
 - Colors: red `#b91c1c`, cream background `#FAFAF8`
 - Model: **B2B wholesale** — never show public prices; always CTA to register/login
 

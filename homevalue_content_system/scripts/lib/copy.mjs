@@ -7,9 +7,7 @@ export function cleanProductName(name) {
     .replace(/\s+/g, ' ')
     .trim();
 
-  // Title case, not ALL CAPS
   n = n.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
-  // Fix common abbreviations
   n = n.replace(/\bLb\b/g, 'LB').replace(/\bKg\b/g, 'KG').replace(/\bOz\b/g, 'OZ');
   if (n.length > 48) n = n.slice(0, 45) + '…';
   return n;
@@ -32,25 +30,23 @@ export function extractPackInfo(name) {
 export function buildReelCopy(product, category, brand) {
   const productName = cleanProductName(product.name);
   const packLine = extractPackInfo(product.name);
-  const site = 'hv-website-phi.vercel.app';
-  const registerPath = '/en/register';
+  const site = brand.siteDisplay || brand.website.replace(/^https?:\/\//, '');
+  const registerDisplay = brand.registerUrl.replace(/^https?:\/\//, '');
 
   return {
-    // On-screen (short — one idea per line)
     eyebrow: 'WHOLESALE ONLY',
     productName,
     packLine,
     callout: 'Own a store, restaurant, or shop?',
     calloutSub: 'This post is for you — not regular shoppers.',
-    benefit: `A top seller your customers already ask for.`,
+    benefit: 'A top seller your customers already ask for.',
     steps: [
       { num: '1', text: `Go to ${site}` },
       { num: '2', text: 'Tap Register (free account)' },
       { num: '3', text: 'Log in → see prices → order' },
     ],
-    ctaButton: 'Start here → ' + site + registerPath,
+    ctaButton: `Start here → ${registerDisplay}`,
 
-    // Instagram caption (same clarity)
     caption: [
       `📦 ${productName}`,
       `${packLine} · Wholesale`,
