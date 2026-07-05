@@ -34,7 +34,6 @@ jobs:
         run: node scripts/setup-music.mjs
 
       - name: Sync catalog
-        if: ${{ secrets.FULLVENDOR_TOKEN != '' }}
         working-directory: homevalue_content_system
         env:
           FULLVENDOR_TOKEN: ${{ secrets.FULLVENDOR_TOKEN }}
