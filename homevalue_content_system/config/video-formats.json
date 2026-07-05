@@ -1,0 +1,38 @@
+[
+  {
+    "id": "clean-row",
+    "name": "Clean Row",
+    "description": "Three products in a row — pictures dominate, minimal text",
+    "sceneCount": 2
+  },
+  {
+    "id": "hero-duo",
+    "name": "Hero + Duo",
+    "description": "One large hero product, two smaller below — editorial layout",
+    "sceneCount": 2
+  },
+  {
+    "id": "dark-luxe",
+    "name": "Dark Luxe",
+    "description": "Dark background, products on white cards — premium catalog feel",
+    "sceneCount": 2
+  },
+  {
+    "id": "full-bleed",
+    "name": "Full Bleed",
+    "description": "Edge-to-edge product photos, tiny hook strip, max visual impact",
+    "sceneCount": 2
+  },
+  {
+    "id": "stack-cards",
+    "name": "Stack Cards",
+    "description": "Stacked product cards with category labels — varied vertical rhythm",
+    "sceneCount": 2
+  },
+  {
+    "id": "magazine-split",
+    "name": "Magazine Split",
+    "description": "Hook panel + tall product column — asymmetric professional layout",
+    "sceneCount": 2
+  }
+]

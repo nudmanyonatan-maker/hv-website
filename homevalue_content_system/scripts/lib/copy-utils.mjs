@@ -1,5 +1,17 @@
 /** Shared product name / pack helpers. */
 
+/** FullVendor sometimes returns comma-separated category IDs — use the first. */
+export function primaryCategoryId(categoryId) {
+  if (categoryId == null || categoryId === '') return null;
+  const raw = String(categoryId).split(',')[0].trim();
+  return raw || null;
+}
+
+export function categoryName(catMap, categoryId, fallback = 'Wholesale') {
+  const id = primaryCategoryId(categoryId);
+  return (id && catMap[id]) || fallback;
+}
+
 export function cleanProductName(name) {
   let n = name
     .replace(/\(QTY[^)]*\)/gi, '')

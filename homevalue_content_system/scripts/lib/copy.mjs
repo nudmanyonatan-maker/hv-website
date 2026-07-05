@@ -1,6 +1,6 @@
-/** Copy for Reels featuring multiple products at once. */
+/** Simple copy — pictures first, one easy CTA. No numbered steps. */
 
-import { cleanProductName, extractPackInfo } from './copy-utils.mjs';
+import { cleanProductName, extractPackInfo, categoryName } from './copy-utils.mjs';
 
 export { cleanProductName, extractPackInfo };
 
@@ -12,43 +12,33 @@ export function buildReelCopy(products, catMap, brand) {
     productId: p.productId,
     name: cleanProductName(p.name),
     pack: extractPackInfo(p.name),
-    category: catMap[p.categoryId] || 'Wholesale',
+    category: categoryName(catMap, p.categoryId),
     image: p.image,
   }));
 
-  const namesList = items.map((i) => i.name).join(' · ');
-  const primaryCategory = items[0]?.category || 'Wholesale';
+  const categories = [...new Set(items.map((i) => i.category))];
 
   return {
-    hookLine1: 'Run a store or restaurant?',
-    hookLine2: 'We sell wholesale.',
-    hookLine3: 'Not for regular shoppers.',
+    hook: 'Wholesale only',
+    hookSub: 'Run a store, restaurant, or shop?',
 
     products: items,
-    headline: `${items.length} products · Wholesale`,
-    namesList,
+    categoryTags: categories.slice(0, 3).join(' · '),
 
-    callout: 'This is for business owners.',
-    calloutSub: 'Grocery · Restaurant · Retail · Food service',
+    ctaLine: 'Want to see more?',
+    ctaAction: 'Link in comments 👇',
+    ctaUrl: site,
 
-    steps: [
-      { num: '1', text: `Go to ${site}` },
-      { num: '2', text: 'Tap Register — free' },
-      { num: '3', text: 'Log in & order' },
-    ],
-    ctaButton: 'Tap link in comments 👇',
-
-    linkComment: `Order wholesale here 👇\n${siteUrl}\n\nFree business account — register to see prices & place orders.`,
+    linkComment: `Browse our full wholesale catalog 👇\n${siteUrl}\n\n2,500+ products — free business account to see prices & order.`,
 
     caption: [
-      '🏪 Run a store or restaurant?',
+      '🏪 Wholesale only — for business owners',
       '',
-      `📦 ${items.length} wholesale picks:`,
-      ...items.map((i) => `• ${i.name} (${i.pack})`),
+      ...items.map((i) => `📦 ${i.name}`),
       '',
-      'Home Value — 2,500+ products for grocery, restaurants & shops.',
+      `Categories: ${categories.join(', ')}`,
       '',
-      '👇 Link in comments to order',
+      '👇 Link in comments for the full catalog',
       '',
       '#wholesale #homevalue #hvhomevalue',
     ].join('\n'),

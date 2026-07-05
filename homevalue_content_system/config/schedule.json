@@ -7,7 +7,7 @@
   "reelsPerBatch": 3,
   "mediaType": "REELS",
   "reelDurationSec": 12,
-  "sceneDurations": [3.5, 4, 4.5],
+  "sceneDurations": [5, 4.5],
   "backgroundMusic": {
     "volume": 0.28,
     "fadeInSec": 0.5,
