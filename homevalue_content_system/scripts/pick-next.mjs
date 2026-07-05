@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 /**
- * Pick products from ALL categories — one per category for variety.
- * Uses full catalog (2,400+ SKUs), not just food or top movers.
+ * Pick N products from ONE category per post (rotate categories across posts).
  */
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
@@ -38,7 +37,6 @@ function shuffle(arr) {
   return a;
 }
 
-/** Best in-stock product per category (by order volume). */
 function buildCategoryPools(catalog, excludeIds) {
   const pools = new Map();
   for (const p of catalog.products) {
@@ -56,48 +54,61 @@ function buildCategoryPools(catalog, excludeIds) {
   return pools;
 }
 
-export function pickNextProducts(count = 3) {
-  const catalog = loadCatalog();
-  const state = loadState();
-  const excludeIds = [...state.postedIds];
-  let pools = buildCategoryPools(catalog, excludeIds);
+function pickCategoryId(pools, lastCategories, count) {
+  const eligible = [...pools.entries()]
+    .filter(([, list]) => list.length >= count)
+    .map(([cid]) => cid);
 
-  if (pools.size < count) {
-    state.postedIds = [];
-    state.cycle += 1;
-    pools = buildCategoryPools(catalog, []);
-  }
+  if (eligible.length === 0) return null;
 
-  const categoryIds = shuffle([...pools.keys()]);
-  const products = [];
-
-  for (const cid of categoryIds) {
-    if (products.length >= count) break;
-    const pool = pools.get(cid);
-    const pick = pool[0];
-    if (pick) products.push({ ...pick });
-  }
-
-  // Fill if fewer categories than count
-  if (products.length < count) {
-    const used = new Set(products.map((p) => String(p.productId)));
-    const rest = catalog.products
-      .filter((p) => p.inStock && p.hasImage && !used.has(String(p.productId)) && !excludeIds.includes(String(p.productId)))
-      .sort((a, b) => (b.totalOrders || 0) - (a.totalOrders || 0));
-    for (const p of rest) {
-      if (products.length >= count) break;
-      products.push({ ...p });
-    }
-  }
-
-  return { products, state, catalog };
+  const fresh = eligible.filter((cid) => !lastCategories.includes(cid));
+  const pool = fresh.length > 0 ? fresh : eligible;
+  return shuffle(pool)[0];
 }
 
-export function markPosted(productIds) {
+export function pickNextProducts(count = 6) {
+  const catalog = loadCatalog();
+  const state = loadState();
+  let excludeIds = [...state.postedIds];
+  let pools = buildCategoryPools(catalog, excludeIds);
+
+  let categoryId = pickCategoryId(pools, state.lastCategories || [], count);
+
+  if (!categoryId) {
+    state.postedIds = [];
+    state.cycle += 1;
+    excludeIds = [];
+    pools = buildCategoryPools(catalog, []);
+    categoryId = pickCategoryId(pools, state.lastCategories || [], count);
+  }
+
+  if (!categoryId) {
+    const largest = [...pools.entries()].sort((a, b) => b[1].length - a[1].length)[0];
+    categoryId = largest?.[0] ?? null;
+  }
+
+  const pool = categoryId ? pools.get(categoryId) : [];
+  const seen = new Set();
+  const products = [];
+  for (const p of pool || []) {
+    const id = String(p.productId);
+    if (seen.has(id)) continue;
+    seen.add(id);
+    products.push({ ...p });
+    if (products.length >= count) break;
+  }
+
+  return { products, categoryId, state, catalog };
+}
+
+export function markPosted(productIds, categoryId) {
   const state = loadState();
   for (const id of productIds) {
     const s = String(id);
     if (!state.postedIds.includes(s)) state.postedIds.push(s);
+  }
+  if (categoryId) {
+    state.lastCategories = [String(categoryId), ...(state.lastCategories || [])].slice(0, 5);
   }
   state.lastPostedAt = new Date().toISOString();
   saveState(state);
@@ -105,8 +116,10 @@ export function markPosted(productIds) {
 
 if (process.argv[1]?.endsWith('pick-next.mjs')) {
   const countArg = process.argv.indexOf('--count');
-  const count = countArg >= 0 ? parseInt(process.argv[countArg + 1], 10) : 3;
-  const { products, catalog } = pickNextProducts(count);
+  const count = countArg >= 0 ? parseInt(process.argv[countArg + 1], 10) : 6;
+  const { products, categoryId, catalog } = pickNextProducts(count);
   const catMap = Object.fromEntries(catalog.categories.map((c) => [String(c.id), c.name]));
-  products.forEach((p) => console.log(`• [${categoryName(catMap, p.categoryId)}] ${p.name}`));
+  const cat = categoryName(catMap, categoryId);
+  console.log(`Category: ${cat}`);
+  products.forEach((p) => console.log(`• ${p.name}`));
 }

@@ -1,4 +1,4 @@
-/** Simple copy — one product, picture-first, easy CTA. */
+/** Reel copy — one category, multiple products, carousel-style video. */
 
 import { cleanProductName, extractPackInfo, categoryName } from './copy-utils.mjs';
 
@@ -6,32 +6,37 @@ export { cleanProductName, extractPackInfo };
 
 export function buildReelCopy(products, catMap, brand) {
   const siteUrl = brand.website;
-  const p = products[0];
+  const site = brand.siteDisplay || siteUrl.replace(/^https?:\/\//, '');
+  const category = categoryName(catMap, products[0]?.categoryId);
 
-  const item = {
+  const items = products.map((p) => ({
     productId: p.productId,
     name: cleanProductName(p.name),
     pack: extractPackInfo(p.name),
-    category: categoryName(catMap, p.categoryId),
+    category,
     image: p.image,
-  };
+  }));
 
   return {
-    hook: 'Wholesale only',
-    hookSub: 'Run a store, restaurant, or shop?',
-
-    products: [item],
-
-    ctaLine: 'Want to see more?',
-    ctaAction: 'Link in comments 👇',
-
+    category,
+    cover: {
+      title: category,
+      subtitle: 'Wholesale picks · Home Value',
+      swipe: 'Watch →',
+    },
+    products: items,
+    cta: {
+      line: 'Want to see more?',
+      action: 'Link in comments 👇',
+      url: site,
+    },
     linkComment: `Browse our full wholesale catalog 👇\n${siteUrl}\n\n2,500+ products — free business account to see prices & order.`,
-
     caption: [
       '🏪 Wholesale only — for business owners',
       '',
-      `📦 ${item.name}`,
-      `🏷️ ${item.category}`,
+      `🏷️ ${category}`,
+      '',
+      ...items.map((i) => `📦 ${i.name}`),
       '',
       '👇 Link in comments for the full catalog',
       '',

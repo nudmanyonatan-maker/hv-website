@@ -17,13 +17,13 @@ const countArg = process.argv.indexOf('--count');
 const count = countArg >= 0 ? parseInt(process.argv[countArg + 1], 10) : (schedule.carouselsPerBatch || 1);
 const dryRun = process.argv.includes('--dry-run');
 
-console.log(`Publishing ${count} carousel(s) (${schedule.productsPerCarousel || 6} products each)...\n`);
+console.log(`Publishing ${count} Reel(s) (6 products · one category each)...\n`);
 
 for (let i = 0; i < count; i++) {
-  console.log(`\n════════ Carousel ${i + 1} of ${count} ════════`);
+  console.log(`\n════════ Reel ${i + 1} of ${count} ════════`);
   const cmd = dryRun
-    ? 'node scripts/publish-carousel.mjs --dry-run'
-    : 'node scripts/publish-carousel.mjs';
+    ? 'node scripts/publish-reel.mjs --dry-run'
+    : 'node scripts/publish-reel.mjs';
   execSync(cmd, { cwd: ROOT, stdio: 'inherit', env: process.env });
   if (!dryRun && i < count - 1) {
     console.log('Waiting 30s before next publish (rate limit)...');
@@ -31,4 +31,4 @@ for (let i = 0; i < count; i++) {
   }
 }
 
-console.log(`\n✓ Batch complete — ${count} carousel(s) published`);
+console.log(`\n✓ Batch complete — ${count} Reel(s) published`);

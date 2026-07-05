@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Publish next Instagram post (carousel).
+ * Publish next Instagram Reel (carousel-style video, one category).
  * Usage: node scripts/publish-next.mjs [--dry-run]
  */
 
@@ -13,7 +13,7 @@ const ROOT = join(__dirname, '..');
 
 const dryRun = process.argv.includes('--dry-run');
 const cmd = dryRun
-  ? 'node scripts/publish-carousel.mjs --dry-run'
-  : 'node scripts/publish-carousel.mjs';
+  ? 'node scripts/publish-reel.mjs --dry-run'
+  : 'node scripts/publish-reel.mjs';
 
 execSync(cmd, { cwd: ROOT, stdio: 'inherit', env: process.env });

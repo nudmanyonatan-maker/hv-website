@@ -5,12 +5,14 @@
     "track-02",
     "track-03",
     "track-04",
-    "track-05"
+    "track-05",
+    "track-06",
+    "track-07"
   ],
   "cycle": 0,
   "lastPick": {
-    "id": "track-05",
-    "name": "Light Energy 1",
-    "at": "2026-07-05T19:17:54.890Z"
+    "id": "track-07",
+    "name": "Modern Wholesale 1",
+    "at": "2026-07-05T19:25:45.644Z"
   }
 }

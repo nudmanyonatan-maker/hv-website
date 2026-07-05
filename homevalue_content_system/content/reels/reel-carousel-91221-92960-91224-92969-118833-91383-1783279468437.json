@@ -1,0 +1,124 @@
+{
+  "type": "reel-carousel",
+  "category": "Coffee Warmer",
+  "categoryId": "9627",
+  "productIds": [
+    "91221",
+    "92960",
+    "91224",
+    "92969",
+    "118833",
+    "91383"
+  ],
+  "products": [
+    {
+      "productId": "91221",
+      "name": "Stainlees Steel Coffee Pot",
+      "pack": "By the case",
+      "category": "Coffee Warmer",
+      "image": "https://app.fullvendor.com/uploads/products/77/MK03614_ae3bbe.JPG"
+    },
+    {
+      "productId": "92960",
+      "name": "Coffee Warmer 7*10.50cm Gold W/ C…",
+      "pack": "48 per case",
+      "category": "Coffee Warmer",
+      "image": "https://app.fullvendor.com/uploads/products/77/MU20193904_b66dff.JPG"
+    },
+    {
+      "productId": "91224",
+      "name": "Stainlees Steel Coffee Pot",
+      "pack": "By the case",
+      "category": "Coffee Warmer",
+      "image": "https://app.fullvendor.com/uploads/products/77/MK03617_986ba2.JPG"
+    },
+    {
+      "productId": "92969",
+      "name": "Coffee Warmer 7*10.50cm Gold W/ C…",
+      "pack": "48 per case",
+      "category": "Coffee Warmer",
+      "image": "https://app.fullvendor.com/uploads/products/77/MU20193903_fdf38f.JPG"
+    },
+    {
+      "productId": "118833",
+      "name": "Coffee Warmer No.12",
+      "pack": "48 per case",
+      "category": "Coffee Warmer",
+      "image": "https://app.fullvendor.com/uploads/products/77/MU87-SP27_f7eacd.jpeg"
+    },
+    {
+      "productId": "91383",
+      "name": "Coffee Warmer No.11",
+      "pack": "48 per case",
+      "category": "Coffee Warmer",
+      "image": "https://app.fullvendor.com/uploads/products/77/MU62-SP26_ec5f54.JPG"
+    }
+  ],
+  "slides": 8,
+  "videoPath": "/workspace/homevalue_content_system/content/reels/reel-carousel-91221-92960-91224-92969-118833-91383-1783279468437.mp4",
+  "caption": "🏪 Wholesale only — for business owners\n\n🏷️ Coffee Warmer\n\n📦 Stainlees Steel Coffee Pot\n📦 Coffee Warmer 7*10.50cm Gold W/ C…\n📦 Stainlees Steel Coffee Pot\n📦 Coffee Warmer 7*10.50cm Gold W/ C…\n📦 Coffee Warmer No.12\n📦 Coffee Warmer No.11\n\n👇 Link in comments for the full catalog\n\n#wholesale #homevalue #hvhomevalue",
+  "copy": {
+    "category": "Coffee Warmer",
+    "cover": {
+      "title": "Coffee Warmer",
+      "subtitle": "Wholesale picks · Home Value",
+      "swipe": "Watch →"
+    },
+    "products": [
+      {
+        "productId": "91221",
+        "name": "Stainlees Steel Coffee Pot",
+        "pack": "By the case",
+        "category": "Coffee Warmer",
+        "image": "https://app.fullvendor.com/uploads/products/77/MK03614_ae3bbe.JPG"
+      },
+      {
+        "productId": "92960",
+        "name": "Coffee Warmer 7*10.50cm Gold W/ C…",
+        "pack": "48 per case",
+        "category": "Coffee Warmer",
+        "image": "https://app.fullvendor.com/uploads/products/77/MU20193904_b66dff.JPG"
+      },
+      {
+        "productId": "91224",
+        "name": "Stainlees Steel Coffee Pot",
+        "pack": "By the case",
+        "category": "Coffee Warmer",
+        "image": "https://app.fullvendor.com/uploads/products/77/MK03617_986ba2.JPG"
+      },
+      {
+        "productId": "92969",
+        "name": "Coffee Warmer 7*10.50cm Gold W/ C…",
+        "pack": "48 per case",
+        "category": "Coffee Warmer",
+        "image": "https://app.fullvendor.com/uploads/products/77/MU20193903_fdf38f.JPG"
+      },
+      {
+        "productId": "118833",
+        "name": "Coffee Warmer No.12",
+        "pack": "48 per case",
+        "category": "Coffee Warmer",
+        "image": "https://app.fullvendor.com/uploads/products/77/MU87-SP27_f7eacd.jpeg"
+      },
+      {
+        "productId": "91383",
+        "name": "Coffee Warmer No.11",
+        "pack": "48 per case",
+        "category": "Coffee Warmer",
+        "image": "https://app.fullvendor.com/uploads/products/77/MU62-SP26_ec5f54.JPG"
+      }
+    ],
+    "cta": {
+      "line": "Want to see more?",
+      "action": "Link in comments 👇",
+      "url": "homevalue.fullvendor.com/en"
+    },
+    "linkComment": "Browse our full wholesale catalog 👇\nhttps://homevalue.fullvendor.com/en\n\n2,500+ products — free business account to see prices & order.",
+    "caption": "🏪 Wholesale only — for business owners\n\n🏷️ Coffee Warmer\n\n📦 Stainlees Steel Coffee Pot\n📦 Coffee Warmer 7*10.50cm Gold W/ C…\n📦 Stainlees Steel Coffee Pot\n📦 Coffee Warmer 7*10.50cm Gold W/ C…\n📦 Coffee Warmer No.12\n📦 Coffee Warmer No.11\n\n👇 Link in comments for the full catalog\n\n#wholesale #homevalue #hvhomevalue"
+  },
+  "music": {
+    "id": "track-06",
+    "name": "Light Energy 2"
+  },
+  "renderedAt": "2026-07-05T19:25:02.462Z"
+}

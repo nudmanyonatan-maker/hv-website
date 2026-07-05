@@ -3,9 +3,21 @@
   "timezone": "America/New_York",
   "timesLocal": ["09:00", "12:00", "15:00", "18:00", "21:00"],
   "timesUtc": ["13:00", "16:00", "19:00", "22:00", "01:00"],
-  "mediaType": "CAROUSEL",
-  "productsPerCarousel": 6,
-  "carouselsPerBatch": 1,
+  "mediaType": "REELS",
+  "productsPerReel": 6,
+  "reelsPerBatch": 1,
+  "coverDurationSec": 3,
+  "productDurationSec": 2.5,
+  "ctaDurationSec": 3.5,
+  "slideFadeSec": 0.3,
+  "backgroundMusic": {
+    "volume": 0.28,
+    "fadeInSec": 0.5,
+    "fadeOutSec": 1.5,
+    "rotate": true,
+    "library": "assets/music/",
+    "trackCount": 12
+  },
   "composioAccountId": "instagram_lovely-tolan",
   "igUserId": "27741817182104982"
 }
