@@ -1,5 +1,5 @@
 /**
- * Reel slide templates — 1080×1920, carousel-style (cover → products → CTA).
+ * Reel slide templates — 1080×1920, picture-first (product fills the frame).
  */
 
 function esc(s) {
@@ -26,131 +26,117 @@ export function renderCoverSlide(copy, thumbImages = []) {
   ).join('');
 
   return baseHtml(`<div class="wrap">
-    <div class="brand">Home Value</div>
-    <div class="title">${esc(copy.cover.title)}</div>
-    <div class="sub">${esc(copy.cover.subtitle)}</div>
+    <div class="top">
+      <div class="brand">Home Value</div>
+      <div class="title">${esc(copy.cover.title)}</div>
+    </div>
     <div class="mosaic">${thumbs}</div>
-    <div class="count">${copy.products.length} wholesale picks</div>
-    <div class="swipe">${esc(copy.cover.swipe)}</div>
+    <div class="bottom">
+      <div class="swipe">${esc(copy.cover.swipe)}</div>
+    </div>
   </div>`, `
-.wrap { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  padding:72px 48px; background:linear-gradient(160deg,#B91C1C 0%,#7f1d1d 55%,#111 100%); color:#fff; text-align:center; }
-.brand { font-size:34px; font-weight:800; letter-spacing:0.06em; opacity:0.9; margin-bottom:52px; }
-.title { font-size:72px; font-weight:900; line-height:0.98; letter-spacing:-0.02em; max-width:960px; }
-.sub { font-size:38px; font-weight:600; margin-top:28px; opacity:0.88; line-height:1.3; }
-.mosaic { display:flex; gap:18px; margin:64px 0 36px; justify-content:center; align-items:center; }
-.thumb { width:220px; height:220px; background:#fff; border-radius:26px; padding:18px;
-  display:flex; align-items:center; justify-content:center; box-shadow:0 24px 48px rgba(0,0,0,0.25); }
-.thumb.t1 { transform:scale(1.08); }
-.thumb img { max-width:100%; max-height:100%; object-fit:contain; }
-.count { font-size:26px; font-weight:700; opacity:0.8; }
-.swipe { margin-top:auto; font-size:30px; font-weight:800; background:rgba(255,255,255,0.15);
-  padding:18px 44px; border-radius:999px; backdrop-filter:blur(8px); }
+.wrap { height:100%; display:flex; flex-direction:column; background:linear-gradient(160deg,#B91C1C 0%,#7f1d1d 50%,#111 100%); color:#fff; }
+.top { text-align:center; padding:48px 40px 24px; flex-shrink:0; }
+.brand { font-size:28px; font-weight:800; letter-spacing:0.06em; opacity:0.85; margin-bottom:16px; }
+.title { font-size:56px; font-weight:900; line-height:1; letter-spacing:-0.02em; }
+.mosaic { flex:1; min-height:0; display:flex; gap:20px; padding:16px 28px; align-items:center; justify-content:center; }
+.thumb { flex:1; max-width:320px; height:100%; max-height:1200px; background:#fff; border-radius:28px; padding:12px;
+  display:flex; align-items:center; justify-content:center; box-shadow:0 24px 48px rgba(0,0,0,0.3); }
+.thumb.t1 { transform:scale(1.04); }
+.thumb img { width:100%; height:100%; object-fit:contain; }
+.bottom { flex-shrink:0; text-align:center; padding:32px 40px 56px; }
+.swipe { font-size:28px; font-weight:800; background:rgba(255,255,255,0.15);
+  padding:16px 40px; border-radius:999px; display:inline-block; }
   `);
 }
 
 export function renderCtaSlide(copy) {
   return baseHtml(`<div class="wrap">
-    <div class="icon">🏪</div>
     <div class="line">${esc(copy.cta.line)}</div>
     <div class="action">${esc(copy.cta.action)}</div>
     <div class="url">${esc(copy.cta.url)}</div>
-    <div class="foot">${esc(copy.category)} · 2,500+ SKUs</div>
   </div>`, `
 .wrap { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  padding:72px 56px; background:#111; color:#fff; text-align:center; }
-.icon { font-size:88px; margin-bottom:36px; }
-.line { font-size:76px; font-weight:900; line-height:1.05; }
-.action { font-size:52px; font-weight:800; color:#FFE082; margin-top:32px; }
-.url { font-size:36px; font-weight:600; color:#aaa; margin-top:28px; }
-.foot { margin-top:auto; font-size:28px; font-weight:700; color:#666; letter-spacing:0.04em; text-transform:uppercase; }
+  padding:64px 48px; background:#111; color:#fff; text-align:center; }
+.line { font-size:72px; font-weight:900; line-height:1.05; }
+.action { font-size:48px; font-weight:800; color:#FFE082; margin-top:28px; }
+.url { font-size:32px; font-weight:600; color:#888; margin-top:24px; }
   `, true);
 }
+
+/** Shared: image stage eats ~88% of frame, slim text bar below. */
+const IMG = 'width:100%; height:100%; object-fit:contain;';
+const STAGE = 'flex:1; min-height:0; width:100%; display:flex; align-items:center; justify-content:center;';
 
 const productStyles = {
   clean(product, image) {
     return baseHtml(`<div class="wrap">
-      <div class="badge">${esc(product.category)}</div>
       <div class="stage"><img src="${image}" alt=""/></div>
-      <div class="name">${esc(product.name)}</div>
-      <div class="pack">${esc(product.pack)}</div>
+      <div class="bar">
+        <div class="name">${esc(product.name)}</div>
+      </div>
     </div>`, `
-.wrap { height:100%; display:flex; flex-direction:column; padding:56px 44px 64px; background:#fafafa; }
-.badge { text-align:center; font-size:26px; font-weight:800; color:#B91C1C; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:28px; }
-.stage { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; background:#fff; border-radius:36px; padding:40px; box-shadow:0 20px 56px rgba(0,0,0,0.07); }
-.stage img { max-width:100%; max-height:100%; object-fit:contain; filter:drop-shadow(0 16px 32px rgba(0,0,0,0.1)); }
-.name { font-size:58px; font-weight:900; color:#111; text-align:center; line-height:1.08; margin-top:36px; }
-.pack { font-size:30px; font-weight:600; color:#888; text-align:center; margin-top:14px; }
+.wrap { height:100%; display:flex; flex-direction:column; background:#fff; padding:20px 16px 0; }
+.stage { ${STAGE} padding:8px; }
+.stage img { ${IMG} filter:drop-shadow(0 20px 40px rgba(0,0,0,0.12)); }
+.bar { flex-shrink:0; text-align:center; padding:20px 24px 36px; background:#fafafa; border-top:3px solid #B91C1C; }
+.name { font-size:40px; font-weight:900; color:#111; line-height:1.1; }
     `);
   },
 
   dark(product, image) {
     return baseHtml(`<div class="wrap">
-      <div class="card"><img src="${image}" alt=""/></div>
-      <div class="meta">
-        <div class="badge">${esc(product.category)}</div>
+      <div class="stage"><img src="${image}" alt=""/></div>
+      <div class="bar">
         <div class="name">${esc(product.name)}</div>
-        <div class="pack">${esc(product.pack)}</div>
       </div>
     </div>`, `
-.wrap { height:100%; display:flex; flex-direction:column; padding:48px 40px 60px; gap:32px; background:#0a0a0a; }
-.card { flex:1; min-height:0; background:#fff; border-radius:32px; display:flex; align-items:center; justify-content:center; padding:44px; box-shadow:0 36px 72px rgba(0,0,0,0.45); }
-.card img { max-width:100%; max-height:100%; object-fit:contain; }
-.meta { text-align:center; }
-.badge { font-size:24px; font-weight:700; color:#B91C1C; text-transform:uppercase; letter-spacing:0.08em; }
-.name { font-size:54px; font-weight:900; color:#fff; line-height:1.1; margin-top:14px; }
-.pack { font-size:28px; font-weight:600; color:#666; margin-top:12px; }
+.wrap { height:100%; display:flex; flex-direction:column; background:#0a0a0a; padding:16px 12px 0; }
+.stage { ${STAGE} padding:4px; }
+.stage img { ${IMG} filter:drop-shadow(0 24px 48px rgba(255,255,255,0.08)); }
+.bar { flex-shrink:0; text-align:center; padding:18px 24px 32px; }
+.name { font-size:38px; font-weight:900; color:#fff; line-height:1.1; }
     `, true);
   },
 
   gradient(product, image) {
     return baseHtml(`<div class="wrap">
-      <div class="badge">${esc(product.category)}</div>
       <div class="stage"><img src="${image}" alt=""/></div>
-      <div class="name">${esc(product.name)}</div>
+      <div class="bar"><div class="name">${esc(product.name)}</div></div>
     </div>`, `
-.wrap { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  padding:56px 44px; background:linear-gradient(165deg,#fff1f2 0%,#fff 40%,#f8fafc 100%); text-align:center; }
-.badge { font-size:26px; font-weight:800; color:#B91C1C; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:24px; }
-.stage { flex:1; width:100%; min-height:0; display:flex; align-items:center; justify-content:center; padding:20px; }
-.stage img { max-width:98%; max-height:98%; object-fit:contain; filter:drop-shadow(0 28px 56px rgba(185,28,28,0.14)); }
-.name { font-size:60px; font-weight:900; color:#111; line-height:1.08; margin-top:28px; }
+.wrap { height:100%; display:flex; flex-direction:column; background:linear-gradient(180deg,#fff5f5,#fff); padding:16px 12px 0; }
+.stage { ${STAGE} padding:4px; }
+.stage img { ${IMG} filter:drop-shadow(0 24px 48px rgba(185,28,28,0.15)); }
+.bar { flex-shrink:0; text-align:center; padding:18px 24px 32px; }
+.name { font-size:40px; font-weight:900; color:#111; line-height:1.1; }
     `);
   },
 
   spotlight(product, image) {
     return baseHtml(`<div class="wrap">
-      <div class="glow"><img src="${image}" alt=""/></div>
-      <div class="info">
-        <div class="badge">${esc(product.category)}</div>
-        <div class="name">${esc(product.name)}</div>
-      </div>
+      <div class="stage"><img src="${image}" alt=""/></div>
+      <div class="bar"><div class="name">${esc(product.name)}</div></div>
     </div>`, `
 .wrap { height:100%; display:flex; flex-direction:column; background:#111; }
-.glow { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; padding:56px 40px;
-  background:radial-gradient(circle at 50% 42%, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.03) 40%, transparent 70%); }
-.glow img { max-width:100%; max-height:100%; object-fit:contain; filter:drop-shadow(0 36px 72px rgba(0,0,0,0.5)); }
-.info { text-align:center; padding:40px 44px 64px; }
-.badge { font-size:24px; font-weight:700; color:#B91C1C; text-transform:uppercase; letter-spacing:0.08em; }
-.name { font-size:56px; font-weight:900; color:#fff; line-height:1.08; margin-top:16px; }
+.stage { ${STAGE} padding:12px 8px;
+  background:radial-gradient(circle at 50% 45%, rgba(255,255,255,0.12) 0%, transparent 55%); }
+.stage img { ${IMG} filter:drop-shadow(0 32px 64px rgba(0,0,0,0.45)); }
+.bar { flex-shrink:0; text-align:center; padding:16px 24px 36px; }
+.name { font-size:40px; font-weight:900; color:#fff; line-height:1.1; }
     `, true);
   },
 
   minimal(product, image) {
     return baseHtml(`<div class="wrap">
       <div class="fill"><img src="${image}" alt=""/></div>
-      <div class="bar">
-        <div class="badge">${esc(product.category)}</div>
-        <div class="name">${esc(product.name)}</div>
-      </div>
+      <div class="bar"><div class="name">${esc(product.name)}</div></div>
     </div>`, `
-.wrap { position:relative; height:100%; background:#fff; }
-.fill { height:100%; display:flex; align-items:center; justify-content:center; padding:100px 36px 320px; }
-.fill img { width:100%; height:100%; object-fit:contain; }
-.bar { position:absolute; left:0; right:0; bottom:0; padding:48px 48px 72px;
-  background:linear-gradient(transparent, rgba(255,255,255,0.97) 35%); }
-.badge { font-size:26px; font-weight:800; color:#B91C1C; text-transform:uppercase; margin-bottom:12px; }
-.name { font-size:58px; font-weight:900; color:#111; line-height:1.08; }
+.wrap { position:relative; height:100%; background:#fff; display:flex; flex-direction:column; }
+.fill { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; padding:24px 12px 8px; }
+.fill img { ${IMG} }
+.bar { flex-shrink:0; padding:16px 28px 40px; text-align:center;
+  background:linear-gradient(transparent, rgba(255,255,255,0.98) 20%); }
+.name { font-size:40px; font-weight:900; color:#111; line-height:1.1; }
     `);
   },
 };
