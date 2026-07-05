@@ -48,7 +48,7 @@ console.log('Uploading...');
 const videoUrl = await uploadVideo(reelOut);
 console.log(`✓ ${videoUrl}`);
 
-const apiKey = process.env.COMPOSIO_API_KEY;
+const apiKey = process.env.COMPOSIO_API_KEY?.trim();
 if (!apiKey) {
   console.error('Missing COMPOSIO_API_KEY');
   process.exit(1);

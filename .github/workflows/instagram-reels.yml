@@ -39,6 +39,12 @@ jobs:
           FULLVENDOR_TOKEN: ${{ secrets.FULLVENDOR_TOKEN }}
         run: node scripts/sync-catalog.mjs
 
+      - name: Verify Composio API key
+        working-directory: homevalue_content_system
+        env:
+          COMPOSIO_API_KEY: ${{ secrets.COMPOSIO_API_KEY }}
+        run: node scripts/verify-composio.mjs
+
       - name: Publish next reel
         working-directory: homevalue_content_system
         env:
