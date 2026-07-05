@@ -1,0 +1,7 @@
+.env
+catalog/products.json
+content/posts/queue.json
+content/reels/*.mp4
+content/tmp/
+content/state/pending-publish.json
+node_modules/

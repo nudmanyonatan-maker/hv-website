@@ -17,7 +17,7 @@ function isPlaceholder(url: string) {
 }
 
 export default function Footer({ dict, lang }: FooterProps) {
-  const instagramUrl = 'https://instagram.com/';
+  const instagramUrl = 'https://instagram.com/hvhomevalue';
   const whatsappUrl = 'https://wa.me/';
 
   const instagramDisabled = isPlaceholder(instagramUrl);

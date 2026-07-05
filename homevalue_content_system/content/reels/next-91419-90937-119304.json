@@ -1,0 +1,68 @@
+{
+  "format": {
+    "id": "hero-duo",
+    "name": "Hero + Duo"
+  },
+  "productIds": [
+    "91419",
+    "90937",
+    "119304"
+  ],
+  "products": [
+    {
+      "id": "91419",
+      "name": "QUEEN EMBROIDERY SHEET SET (QTY/CTN 12 SET)",
+      "category": "Home Deco (Carpet & Rug & Drapery)"
+    },
+    {
+      "id": "90937",
+      "name": "BBQ KNIFE 23 (QTY/CTN 200.00  PC(S))",
+      "category": "Gadgets & Utensils & Cleaning Products"
+    },
+    {
+      "id": "119304",
+      "name": "KABULI CHICKPEA 9MM 50LB",
+      "category": "Oriental Authentic Food & Drink"
+    }
+  ],
+  "videoPath": "/workspace/homevalue_content_system/content/reels/next-91419-90937-119304.mp4",
+  "caption": "🏪 Wholesale only — for business owners\n\n📦 Queen Embroidery Sheet Set\n📦 Bbq Knife 23 )\n📦 Kabuli Chickpea 9mm 50lb\n\nCategories: Home Deco (Carpet & Rug & Drapery), Gadgets & Utensils & Cleaning Products, Oriental Authentic Food & Drink\n\n👇 Link in comments for the full catalog\n\n#wholesale #homevalue #hvhomevalue",
+  "copy": {
+    "hook": "Wholesale only",
+    "hookSub": "Run a store, restaurant, or shop?",
+    "products": [
+      {
+        "productId": "91419",
+        "name": "Queen Embroidery Sheet Set",
+        "pack": "12 per case",
+        "category": "Home Deco (Carpet & Rug & Drapery)",
+        "image": "https://app.fullvendor.com/uploads/products/77/MAE1Q_382515.JPG"
+      },
+      {
+        "productId": "90937",
+        "name": "Bbq Knife 23 )",
+        "pack": "200 per case",
+        "category": "Gadgets & Utensils & Cleaning Products",
+        "image": "https://app.fullvendor.com/uploads/products/77/1702.JPG"
+      },
+      {
+        "productId": "119304",
+        "name": "Kabuli Chickpea 9mm 50lb",
+        "pack": "50 lb case",
+        "category": "Oriental Authentic Food & Drink",
+        "image": "https://app.fullvendor.com/uploads/products/77/CHIARD2026_2cf0af.jpg"
+      }
+    ],
+    "categoryTags": "Home Deco (Carpet & Rug & Drapery) · Gadgets & Utensils & Cleaning Products · Oriental Authentic Food & Drink",
+    "ctaLine": "Want to see more?",
+    "ctaAction": "Link in comments 👇",
+    "ctaUrl": "homevalue.fullvendor.com/en",
+    "linkComment": "Browse our full wholesale catalog 👇\nhttps://homevalue.fullvendor.com/en\n\n2,500+ products — free business account to see prices & order.",
+    "caption": "🏪 Wholesale only — for business owners\n\n📦 Queen Embroidery Sheet Set\n📦 Bbq Knife 23 )\n📦 Kabuli Chickpea 9mm 50lb\n\nCategories: Home Deco (Carpet & Rug & Drapery), Gadgets & Utensils & Cleaning Products, Oriental Authentic Food & Drink\n\n👇 Link in comments for the full catalog\n\n#wholesale #homevalue #hvhomevalue"
+  },
+  "music": {
+    "id": "track-04",
+    "name": "Smooth Retail 2"
+  },
+  "renderedAt": "2026-07-05T19:14:57.093Z"
+}

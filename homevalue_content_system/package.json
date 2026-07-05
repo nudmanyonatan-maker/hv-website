@@ -1,0 +1,17 @@
+{
+  "name": "homevalue-content-system",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync-catalog.mjs",
+    "setup:music": "node scripts/setup-music.mjs",
+    "generate": "node scripts/generate-content.mjs",
+    "render": "node scripts/render-reel.mjs",
+    "publish": "node scripts/publish-next.mjs",
+    "publish:batch": "node scripts/publish-batch.mjs",
+    "publish:dry": "node scripts/publish-next.mjs --dry-run"
+  },
+  "dependencies": {
+    "puppeteer": "^24.8.2"
+  }
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "hero-center",
+    "name": "Hero Center",
+    "description": "One product, dead center, fills the frame",
+    "sceneCount": 2
+  },
+  {
+    "id": "hero-glow",
+    "name": "Hero Glow",
+    "description": "Big product on soft gradient with category badge",
+    "sceneCount": 2
+  },
+  {
+    "id": "hero-dark",
+    "name": "Hero Dark",
+    "description": "Dark premium backdrop, product pops on white card",
+    "sceneCount": 2
+  },
+  {
+    "id": "hero-bleed",
+    "name": "Hero Bleed",
+    "description": "Edge-to-edge product photo, almost no chrome",
+    "sceneCount": 2
+  },
+  {
+    "id": "hero-magazine",
+    "name": "Hero Magazine",
+    "description": "Editorial side panel + towering product shot",
+    "sceneCount": 2
+  },
+  {
+    "id": "hero-spotlight",
+    "name": "Hero Spotlight",
+    "description": "Spotlight vignette, product front and center",
+    "sceneCount": 2
+  }
+]

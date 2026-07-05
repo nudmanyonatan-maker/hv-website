@@ -1,0 +1,68 @@
+{
+  "format": {
+    "id": "stack-cards",
+    "name": "stack-cards"
+  },
+  "productIds": [
+    "91036",
+    "92555",
+    "91462"
+  ],
+  "products": [
+    {
+      "id": "91036",
+      "name": "STAINLESS STEEL KITCHEN SINK (QTY/CTN 120 PCS)",
+      "category": "Dollar Products"
+    },
+    {
+      "id": "92555",
+      "name": "S/S KETTLE 1.50L (QTY./CTN.48) (QTY/CTN 48.00  PC(S))",
+      "category": "Kettle"
+    },
+    {
+      "id": "91462",
+      "name": "STAINLESS STEEL SPOON COLOR : SILVER (QTY./CTN.100)",
+      "category": "Silverware"
+    }
+  ],
+  "videoPath": "content/reels/demo-mixed-categories.mp4",
+  "caption": "🏪 Wholesale only — for business owners\n\n📦 Stainless Steel Kitchen Sink\n📦 S/S Kettle 1.50l )\n📦 Stainless Steel Spoon Color : Silver\n\nCategories: Dollar Products, Kettle, Silverware\n\n👇 Link in comments for the full catalog\n\n#wholesale #homevalue #hvhomevalue",
+  "copy": {
+    "hook": "Wholesale only",
+    "hookSub": "Run a store, restaurant, or shop?",
+    "products": [
+      {
+        "productId": "91036",
+        "name": "Stainless Steel Kitchen Sink",
+        "pack": "120 per case",
+        "category": "Dollar Products",
+        "image": "https://app.fullvendor.com/uploads/products/77/2387.JPG"
+      },
+      {
+        "productId": "92555",
+        "name": "S/S Kettle 1.50l )",
+        "pack": "48 per case",
+        "category": "Kettle",
+        "image": "https://app.fullvendor.com/uploads/products/77/ID51_360462.JPG"
+      },
+      {
+        "productId": "91462",
+        "name": "Stainless Steel Spoon Color : Silver",
+        "pack": "100 per case",
+        "category": "Silverware",
+        "image": "https://app.fullvendor.com/uploads/products/77/140617.JPG"
+      }
+    ],
+    "categoryTags": "Dollar Products · Kettle · Silverware",
+    "ctaLine": "Want to see more?",
+    "ctaAction": "Link in comments 👇",
+    "ctaUrl": "homevalue.fullvendor.com/en",
+    "linkComment": "Browse our full wholesale catalog 👇\nhttps://homevalue.fullvendor.com/en\n\n2,500+ products — free business account to see prices & order.",
+    "caption": "🏪 Wholesale only — for business owners\n\n📦 Stainless Steel Kitchen Sink\n📦 S/S Kettle 1.50l )\n📦 Stainless Steel Spoon Color : Silver\n\nCategories: Dollar Products, Kettle, Silverware\n\n👇 Link in comments for the full catalog\n\n#wholesale #homevalue #hvhomevalue"
+  },
+  "music": {
+    "id": "track-03",
+    "name": "Smooth Retail 1"
+  },
+  "renderedAt": "2026-07-05T19:13:12.208Z"
+}

@@ -1,0 +1,124 @@
+{
+  "type": "reel-carousel",
+  "category": "Hooka",
+  "categoryId": "9637",
+  "productIds": [
+    "92240",
+    "92242",
+    "118466",
+    "118381",
+    "118402",
+    "118581"
+  ],
+  "products": [
+    {
+      "productId": "92240",
+      "name": "Foil Holder",
+      "pack": "By the case",
+      "category": "Hooka",
+      "image": "https://app.fullvendor.com/uploads/products/77/301337.JPG"
+    },
+    {
+      "productId": "92242",
+      "name": "Foil Holder",
+      "pack": "200 per case",
+      "category": "Hooka",
+      "image": "https://app.fullvendor.com/uploads/products/77/301336.JPG"
+    },
+    {
+      "productId": "118466",
+      "name": "Sakh2089",
+      "pack": "0 per case",
+      "category": "Hooka",
+      "image": "https://app.fullvendor.com/uploads/products/77/706907.JPG"
+    },
+    {
+      "productId": "118381",
+      "name": "Sakh2069",
+      "pack": "By the case",
+      "category": "Hooka",
+      "image": "https://app.fullvendor.com/uploads/products/77/Sakh2069_dfe156.JPG"
+    },
+    {
+      "productId": "118402",
+      "name": "Sakh2054 - Box*50",
+      "pack": "50 per case",
+      "category": "Hooka",
+      "image": "https://app.fullvendor.com/uploads/products/77/Sakh2054 -  Box*50_3c83ce.JPG"
+    },
+    {
+      "productId": "118581",
+      "name": "Sakh415",
+      "pack": "200 per case",
+      "category": "Hooka",
+      "image": "https://app.fullvendor.com/uploads/products/77/SAKH415_b5412f.jpeg"
+    }
+  ],
+  "slides": 8,
+  "videoPath": "/workspace/homevalue_content_system/content/reels/next-92240-92242-118466-118381-118402-118581.mp4",
+  "caption": "🏪 Wholesale only — for business owners\n\n🏷️ Hooka\n\n📦 Foil Holder\n📦 Foil Holder\n📦 Sakh2089\n📦 Sakh2069\n📦 Sakh2054 - Box*50\n📦 Sakh415\n\n👇 Link in comments for the full catalog\n\n#wholesale #homevalue #hvhomevalue",
+  "copy": {
+    "category": "Hooka",
+    "cover": {
+      "title": "Hooka",
+      "subtitle": "Wholesale picks · Home Value",
+      "swipe": "Watch →"
+    },
+    "products": [
+      {
+        "productId": "92240",
+        "name": "Foil Holder",
+        "pack": "By the case",
+        "category": "Hooka",
+        "image": "https://app.fullvendor.com/uploads/products/77/301337.JPG"
+      },
+      {
+        "productId": "92242",
+        "name": "Foil Holder",
+        "pack": "200 per case",
+        "category": "Hooka",
+        "image": "https://app.fullvendor.com/uploads/products/77/301336.JPG"
+      },
+      {
+        "productId": "118466",
+        "name": "Sakh2089",
+        "pack": "0 per case",
+        "category": "Hooka",
+        "image": "https://app.fullvendor.com/uploads/products/77/706907.JPG"
+      },
+      {
+        "productId": "118381",
+        "name": "Sakh2069",
+        "pack": "By the case",
+        "category": "Hooka",
+        "image": "https://app.fullvendor.com/uploads/products/77/Sakh2069_dfe156.JPG"
+      },
+      {
+        "productId": "118402",
+        "name": "Sakh2054 - Box*50",
+        "pack": "50 per case",
+        "category": "Hooka",
+        "image": "https://app.fullvendor.com/uploads/products/77/Sakh2054 -  Box*50_3c83ce.JPG"
+      },
+      {
+        "productId": "118581",
+        "name": "Sakh415",
+        "pack": "200 per case",
+        "category": "Hooka",
+        "image": "https://app.fullvendor.com/uploads/products/77/SAKH415_b5412f.jpeg"
+      }
+    ],
+    "cta": {
+      "line": "Want to see more?",
+      "action": "Link in comments 👇",
+      "url": "homevalue.fullvendor.com/en"
+    },
+    "linkComment": "Browse our full wholesale catalog 👇\nhttps://homevalue.fullvendor.com/en\n\n2,500+ products — free business account to see prices & order.",
+    "caption": "🏪 Wholesale only — for business owners\n\n🏷️ Hooka\n\n📦 Foil Holder\n📦 Foil Holder\n📦 Sakh2089\n📦 Sakh2069\n📦 Sakh2054 - Box*50\n📦 Sakh415\n\n👇 Link in comments for the full catalog\n\n#wholesale #homevalue #hvhomevalue"
+  },
+  "music": {
+    "id": "track-07",
+    "name": "Modern Wholesale 1"
+  },
+  "renderedAt": "2026-07-05T19:25:46.147Z"
+}

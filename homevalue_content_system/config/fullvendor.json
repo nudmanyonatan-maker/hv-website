@@ -1,0 +1,7 @@
+{
+  "baseUrl": "https://app.fullvendor.com/restapi/api/",
+  "companyId": "77",
+  "languageId": "1",
+  "defaultCustomerId": "-1",
+  "notes": "Token is loaded from FULLVENDOR_TOKEN env var — never commit the token to git."
+}

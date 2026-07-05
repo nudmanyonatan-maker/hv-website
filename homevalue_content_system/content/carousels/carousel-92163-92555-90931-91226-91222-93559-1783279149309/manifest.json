@@ -1,0 +1,167 @@
+{
+  "type": "carousel",
+  "productIds": [
+    "92163",
+    "92555",
+    "90931",
+    "91226",
+    "91222",
+    "93559"
+  ],
+  "products": [
+    {
+      "productId": "92163",
+      "name": "Aluminum Kunafa Plate 25 Cm",
+      "pack": "24 per case",
+      "category": "Trays",
+      "image": "https://app.fullvendor.com/uploads/products/77/265890.JPG"
+    },
+    {
+      "productId": "92555",
+      "name": "S/S Kettle 1.50l",
+      "pack": "48 per case",
+      "category": "Kettle",
+      "image": "https://app.fullvendor.com/uploads/products/77/ID51_360462.JPG"
+    },
+    {
+      "productId": "90931",
+      "name": "Melamine Hummus Plate 5\"",
+      "pack": "240 per case",
+      "category": "Ceramic",
+      "image": "https://app.fullvendor.com/uploads/products/77/1680.JPG"
+    },
+    {
+      "productId": "91226",
+      "name": "Stainless Steel Carver",
+      "pack": "36 per case",
+      "category": "Gadgets & Utensils & Cleaning Products",
+      "image": "https://app.fullvendor.com/uploads/products/77/MK03ZCM_320749.JPG"
+    },
+    {
+      "productId": "91222",
+      "name": "Stainlees Steel Coffee Pot",
+      "pack": "By the case",
+      "category": "Coffee Warmer",
+      "image": "https://app.fullvendor.com/uploads/products/77/MK03615_449175.JPG"
+    },
+    {
+      "productId": "93559",
+      "name": "Mat Mix Colors",
+      "pack": "150 per case",
+      "category": "Muslim Pictures and Deco",
+      "image": "https://app.fullvendor.com/uploads/products/77/MU1601003_ac5e38.JPG"
+    }
+  ],
+  "slides": [
+    {
+      "index": 1,
+      "type": "cover",
+      "style": null,
+      "path": "/workspace/homevalue_content_system/content/carousels/carousel-92163-92555-90931-91226-91222-93559-1783279149309/slide-01.jpg"
+    },
+    {
+      "index": 2,
+      "type": "product",
+      "style": "clean",
+      "path": "/workspace/homevalue_content_system/content/carousels/carousel-92163-92555-90931-91226-91222-93559-1783279149309/slide-02.jpg"
+    },
+    {
+      "index": 3,
+      "type": "product",
+      "style": "dark",
+      "path": "/workspace/homevalue_content_system/content/carousels/carousel-92163-92555-90931-91226-91222-93559-1783279149309/slide-03.jpg"
+    },
+    {
+      "index": 4,
+      "type": "product",
+      "style": "gradient",
+      "path": "/workspace/homevalue_content_system/content/carousels/carousel-92163-92555-90931-91226-91222-93559-1783279149309/slide-04.jpg"
+    },
+    {
+      "index": 5,
+      "type": "product",
+      "style": "editorial",
+      "path": "/workspace/homevalue_content_system/content/carousels/carousel-92163-92555-90931-91226-91222-93559-1783279149309/slide-05.jpg"
+    },
+    {
+      "index": 6,
+      "type": "product",
+      "style": "spotlight",
+      "path": "/workspace/homevalue_content_system/content/carousels/carousel-92163-92555-90931-91226-91222-93559-1783279149309/slide-06.jpg"
+    },
+    {
+      "index": 7,
+      "type": "product",
+      "style": "minimal",
+      "path": "/workspace/homevalue_content_system/content/carousels/carousel-92163-92555-90931-91226-91222-93559-1783279149309/slide-07.jpg"
+    },
+    {
+      "index": 8,
+      "type": "cta",
+      "style": null,
+      "path": "/workspace/homevalue_content_system/content/carousels/carousel-92163-92555-90931-91226-91222-93559-1783279149309/slide-08.jpg"
+    }
+  ],
+  "outputDir": "/workspace/homevalue_content_system/content/carousels/carousel-92163-92555-90931-91226-91222-93559-1783279149309",
+  "caption": "🏪 Wholesale only — for business owners\n\n📦 Aluminum Kunafa Plate 25 Cm · Trays\n📦 S/S Kettle 1.50l · Kettle\n📦 Melamine Hummus Plate 5\" · Ceramic\n📦 Stainless Steel Carver · Gadgets & Utensils & Cleaning Products\n📦 Stainlees Steel Coffee Pot · Coffee Warmer\n📦 Mat Mix Colors · Muslim Pictures and Deco\n\n👇 Link in comments for the full catalog\n\n#wholesale #homevalue #hvhomevalue",
+  "copy": {
+    "cover": {
+      "title": "Wholesale Picks",
+      "subtitle": "For stores, restaurants & shops",
+      "swipe": "Swipe →",
+      "categories": "Trays · Kettle · Ceramic · Gadgets & Utensils & Cleaning Products"
+    },
+    "products": [
+      {
+        "productId": "92163",
+        "name": "Aluminum Kunafa Plate 25 Cm",
+        "pack": "24 per case",
+        "category": "Trays",
+        "image": "https://app.fullvendor.com/uploads/products/77/265890.JPG"
+      },
+      {
+        "productId": "92555",
+        "name": "S/S Kettle 1.50l",
+        "pack": "48 per case",
+        "category": "Kettle",
+        "image": "https://app.fullvendor.com/uploads/products/77/ID51_360462.JPG"
+      },
+      {
+        "productId": "90931",
+        "name": "Melamine Hummus Plate 5\"",
+        "pack": "240 per case",
+        "category": "Ceramic",
+        "image": "https://app.fullvendor.com/uploads/products/77/1680.JPG"
+      },
+      {
+        "productId": "91226",
+        "name": "Stainless Steel Carver",
+        "pack": "36 per case",
+        "category": "Gadgets & Utensils & Cleaning Products",
+        "image": "https://app.fullvendor.com/uploads/products/77/MK03ZCM_320749.JPG"
+      },
+      {
+        "productId": "91222",
+        "name": "Stainlees Steel Coffee Pot",
+        "pack": "By the case",
+        "category": "Coffee Warmer",
+        "image": "https://app.fullvendor.com/uploads/products/77/MK03615_449175.JPG"
+      },
+      {
+        "productId": "93559",
+        "name": "Mat Mix Colors",
+        "pack": "150 per case",
+        "category": "Muslim Pictures and Deco",
+        "image": "https://app.fullvendor.com/uploads/products/77/MU1601003_ac5e38.JPG"
+      }
+    ],
+    "cta": {
+      "line": "Want to see more?",
+      "action": "Link in comments 👇",
+      "url": "homevalue.fullvendor.com/en"
+    },
+    "linkComment": "Browse our full wholesale catalog 👇\nhttps://homevalue.fullvendor.com/en\n\n2,500+ products — free business account to see prices & order.",
+    "caption": "🏪 Wholesale only — for business owners\n\n📦 Aluminum Kunafa Plate 25 Cm · Trays\n📦 S/S Kettle 1.50l · Kettle\n📦 Melamine Hummus Plate 5\" · Ceramic\n📦 Stainless Steel Carver · Gadgets & Utensils & Cleaning Products\n📦 Stainlees Steel Coffee Pot · Coffee Warmer\n📦 Mat Mix Colors · Muslim Pictures and Deco\n\n👇 Link in comments for the full catalog\n\n#wholesale #homevalue #hvhomevalue"
+  },
+  "renderedAt": "2026-07-05T19:19:24.747Z"
+}

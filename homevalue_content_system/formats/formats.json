@@ -1,0 +1,58 @@
+[
+  {
+    "id": "product_spotlight",
+    "name": "Product Spotlight",
+    "description": "Hero shot of one SKU with pack size and buyer value prop",
+    "durationSec": 15,
+    "weight": 1.0
+  },
+  {
+    "id": "did_you_know",
+    "name": "Did You Know?",
+    "description": "Industry or category insight that helps a buyer sell or stock smarter",
+    "durationSec": 12,
+    "weight": 0.8
+  },
+  {
+    "id": "case_size_callout",
+    "name": "Case Size Callout",
+    "description": "Emphasize pack/case qty — how buyers think",
+    "durationSec": 10,
+    "weight": 0.9
+  },
+  {
+    "id": "category_feature",
+    "name": "Category Feature",
+    "description": "Spotlight a whole category with 2-3 hero SKUs",
+    "durationSec": 20,
+    "weight": 0.7
+  },
+  {
+    "id": "buyer_tip",
+    "name": "Buyer Tip",
+    "description": "Practical stocking or merchandising advice for B2B buyers",
+    "durationSec": 12,
+    "weight": 0.85
+  },
+  {
+    "id": "stack_builder",
+    "name": "Stack Builder",
+    "description": "Suggest complementary SKUs for a fuller order",
+    "durationSec": 18,
+    "weight": 0.75
+  },
+  {
+    "id": "in_stock_now",
+    "name": "In Stock Now",
+    "description": "Availability-focused post for high-demand SKUs",
+    "durationSec": 10,
+    "weight": 0.95
+  },
+  {
+    "id": "wholesale_cta",
+    "name": "Wholesale CTA",
+    "description": "Brand-level post driving account registration",
+    "durationSec": 12,
+    "weight": 0.6
+  }
+]
