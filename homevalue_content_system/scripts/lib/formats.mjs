@@ -1,9 +1,9 @@
 /**
- * Visual format templates — 6 layouts, 2 scenes each. Picture-first, minimal text.
+ * Single-product Reel layouts — one SKU, big and front-and-center.
  */
 
 function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 const FONT = `@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap');`;
@@ -18,201 +18,263 @@ ${extraCss}
 </style></head><body>${body}</body></html>`;
 }
 
-function productCards(products, images, opts = {}) {
-  const { showCat = false } = opts;
-  return products.map((p, i) => `
-    <div class="card">
-      <div class="img"><img src="${images[i]}" alt=""/></div>
-      ${showCat ? `<div class="cat">${esc(p.category)}</div>` : ''}
-      <div class="name">${esc(p.name)}</div>
-    </div>`).join('');
+function product(copy, image) {
+  return copy.products[0];
 }
 
 function ctaBlock(copy) {
   return `<div class="cta">
     <div class="cta-line">${esc(copy.ctaLine)}</div>
     <div class="cta-action">${esc(copy.ctaAction)}</div>
-    <div class="cta-url">${esc(copy.ctaUrl)}</div>
   </div>`;
 }
 
-function hookBlock(copy, variant = 'red') {
-  if (variant === 'minimal') {
-    return `<div class="hook-min"><span class="pill">${esc(copy.hook)}</span><span class="sub">${esc(copy.hookSub)}</span></div>`;
-  }
-  return `<div class="hook"><div class="h1">${esc(copy.hook)}</div><div class="h2">${esc(copy.hookSub)}</div></div>`;
+function heroImage(image, cls = 'hero-img') {
+  return `<div class="${cls}"><img src="${image}" alt=""/></div>`;
 }
 
-const cleanRow = {
+function productNameBlock(p) {
+  return `<div class="name">${esc(p.name)}</div>`;
+}
+
+function categoryBadge(p) {
+  return `<div class="badge">${esc(p.category)}</div>`;
+}
+
+function hookStrip(copy) {
+  return `<div class="strip">${esc(copy.hook)} · ${esc(copy.hookSub)}</div>`;
+}
+
+const heroCenter = {
   scene1(copy, images) {
-    return baseHtml(`<div class="wrap">${hookBlock(copy)}<div class="grid3">${productCards(copy.products, images)}</div></div>`, `
-.wrap { display:flex; flex-direction:column; height:100%; padding:32px; gap:24px; }
-.hook { background:#B91C1C; border-radius:20px; padding:28px; text-align:center; }
-.h1 { font-size:48px; font-weight:900; color:#fff; }
-.h2 { font-size:32px; font-weight:700; color:#FFE082; margin-top:8px; }
-.grid3 { flex:1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; min-height:0; }
-.card { display:flex; flex-direction:column; background:#fafafa; border-radius:18px; border:1px solid #eee; overflow:hidden; }
-.img { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; padding:16px; }
-.img img { max-width:100%; max-height:100%; object-fit:contain; }
-.name { font-size:20px; font-weight:800; text-align:center; padding:14px 8px; color:#111; line-height:1.2; }
+    const p = product(copy, images);
+    return baseHtml(`<div class="wrap">
+      ${hookStrip(copy)}
+      ${heroImage(images[0], 'stage')}
+      <div class="footer">
+        ${categoryBadge(p)}
+        ${productNameBlock(p)}
+      </div>
+    </div>`, `
+.wrap { display:flex; flex-direction:column; height:100%; background:#fafafa; }
+.strip { background:#B91C1C; color:#fff; font-size:30px; font-weight:800; text-align:center; padding:22px 20px; flex-shrink:0; }
+.stage { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; padding:24px 32px; }
+.stage img { max-width:100%; max-height:100%; object-fit:contain; filter:drop-shadow(0 24px 48px rgba(0,0,0,0.12)); }
+.footer { flex-shrink:0; padding:28px 40px 48px; text-align:center; background:#fff; border-top:1px solid #eee; }
+.badge { display:inline-block; font-size:22px; font-weight:700; color:#B91C1C; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px; }
+.name { font-size:52px; font-weight:900; color:#111; line-height:1.08; }
     `);
   },
   scene2(copy, images) {
-    return baseHtml(`<div class="wrap"><div class="grid3 big">${productCards(copy.products, images)}</div>${ctaBlock(copy)}</div>`, `
-.wrap { display:flex; flex-direction:column; height:100%; padding:32px; gap:20px; }
-.grid3 { flex:1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; min-height:0; }
-.grid3.big .img { min-height:520px; }
-.card { display:flex; flex-direction:column; background:#fafafa; border-radius:18px; overflow:hidden; }
-.img { flex:1; display:flex; align-items:center; justify-content:center; padding:12px; }
-.img img { max-width:100%; max-height:100%; object-fit:contain; }
-.name { font-size:18px; font-weight:800; text-align:center; padding:12px 6px; color:#111; }
-.cta { background:#111; border-radius:20px; padding:36px; text-align:center; }
+    const p = product(copy, images);
+    return baseHtml(`<div class="wrap">
+      ${heroImage(images[0], 'stage-big')}
+      <div class="overlay">
+        ${productNameBlock(p)}
+        ${ctaBlock(copy)}
+      </div>
+    </div>`, `
+.wrap { position:relative; height:100%; background:#111; }
+.stage-big { height:100%; display:flex; align-items:center; justify-content:center; padding:80px 48px 320px; }
+.stage-big img { max-width:100%; max-height:100%; object-fit:contain; filter:drop-shadow(0 32px 64px rgba(0,0,0,0.35)); }
+.overlay { position:absolute; left:0; right:0; bottom:0; padding:40px 48px 56px; background:linear-gradient(transparent, rgba(0,0,0,0.92)); text-align:center; }
+.name { font-size:48px; font-weight:900; color:#fff; line-height:1.1; margin-bottom:28px; }
+.cta { background:#B91C1C; border-radius:24px; padding:32px 40px; }
 .cta-line { font-size:40px; font-weight:900; color:#fff; }
 .cta-action { font-size:36px; font-weight:800; color:#FFE082; margin-top:8px; }
-.cta-url { font-size:28px; font-weight:600; color:#aaa; margin-top:8px; }
-    `);
+    `, true);
   },
 };
 
-const heroDuo = {
+const heroGlow = {
   scene1(copy, images) {
-    const [hero, ...rest] = copy.products;
-    return baseHtml(`<div class="wrap">${hookBlock(copy, 'minimal')}
-      <div class="hero"><img src="${images[0]}" alt=""/></div>
-      <div class="hero-name">${esc(hero.name)}</div>
-      <div class="duo">${rest.map((p, i) => `<div class="d-card"><img src="${images[i+1]}" alt=""/><div class="dn">${esc(p.name)}</div></div>`).join('')}</div>
+    const p = product(copy, images);
+    return baseHtml(`<div class="wrap">
+      ${categoryBadge(p)}
+      ${heroImage(images[0], 'stage')}
+      ${productNameBlock(p)}
+      <div class="sub">${esc(copy.hookSub)}</div>
     </div>`, `
-.wrap { padding:28px; display:flex; flex-direction:column; height:100%; gap:16px; }
-.hook-min { text-align:center; }
-.pill { background:#111; color:#fff; font-size:26px; font-weight:800; padding:12px 28px; border-radius:999px; }
-.sub { display:block; font-size:30px; font-weight:700; color:#444; margin-top:12px; }
-.hero { flex:1; min-height:0; background:#f5f5f5; border-radius:24px; display:flex; align-items:center; justify-content:center; padding:24px; }
-.hero img { max-width:95%; max-height:95%; object-fit:contain; }
-.hero-name { font-size:44px; font-weight:900; text-align:center; color:#111; }
-.duo { display:grid; grid-template-columns:1fr 1fr; gap:14px; height:340px; }
-.d-card { background:#fafafa; border-radius:16px; display:flex; flex-direction:column; align-items:center; padding:12px; }
-.d-card img { max-height:240px; object-fit:contain; }
-.dn { font-size:18px; font-weight:800; text-align:center; margin-top:8px; color:#111; }
-    `);
-  },
-  scene2: cleanRow.scene2,
-};
-
-const darkLuxe = {
-  scene1(copy, images) {
-    return baseHtml(`<div class="wrap">${hookBlock(copy)}<div class="grid3">${productCards(copy.products, images, { showCat: true })}</div></div>`, `
-.wrap { display:flex; flex-direction:column; height:100%; padding:32px; gap:20px; }
-.hook { background:#B91C1C; border-radius:20px; padding:24px; text-align:center; }
-.h1 { font-size:44px; font-weight:900; color:#fff; }
-.h2 { font-size:28px; font-weight:700; color:#FFE082; margin-top:6px; }
-.grid3 { flex:1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; min-height:0; }
-.card { background:#fff; border-radius:16px; display:flex; flex-direction:column; overflow:hidden; }
-.img { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; padding:14px; }
-.img img { max-width:100%; max-height:100%; object-fit:contain; }
-.cat { font-size:14px; font-weight:700; color:#B91C1C; text-align:center; text-transform:uppercase; letter-spacing:0.06em; padding-top:8px; }
-.name { font-size:18px; font-weight:800; text-align:center; padding:8px 6px 14px; color:#111; line-height:1.15; }
-    `, true);
-  },
-  scene2(copy, images) {
-    return baseHtml(`<div class="wrap">${ctaBlock(copy)}<div class="grid3">${productCards(copy.products, images)}</div></div>`, `
-.wrap { display:flex; flex-direction:column; height:100%; padding:32px; gap:20px; }
-.cta { background:#B91C1C; border-radius:20px; padding:32px; text-align:center; flex-shrink:0; }
-.cta-line { font-size:38px; font-weight:900; color:#fff; }
-.cta-action { font-size:34px; font-weight:800; color:#FFE082; margin-top:6px; }
-.cta-url { font-size:26px; color:rgba(255,255,255,0.8); margin-top:6px; }
-.grid3 { flex:1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
-.card { background:#fff; border-radius:16px; overflow:hidden; display:flex; flex-direction:column; }
-.img { flex:1; min-height:400px; display:flex; align-items:center; justify-content:center; padding:12px; }
-.img img { max-width:100%; max-height:100%; object-fit:contain; }
-.name { font-size:17px; font-weight:800; text-align:center; padding:10px; color:#111; }
-    `, true);
-  },
-};
-
-const fullBleed = {
-  scene1(copy, images) {
-    return baseHtml(`<div class="wrap"><div class="strip">${esc(copy.hook)} · ${esc(copy.hookSub)}</div>
-      <div class="grid3">${copy.products.map((p, i) => `<div class="bleed"><img src="${images[i]}" alt=""/></div>`).join('')}</div></div>`, `
-.wrap { display:flex; flex-direction:column; height:100%; }
-.strip { background:#B91C1C; color:#fff; font-size:32px; font-weight:800; text-align:center; padding:22px 16px; }
-.grid3 { flex:1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px; min-height:0; background:#111; }
-.bleed { background:#fff; display:flex; align-items:center; justify-content:center; padding:8px; }
-.bleed img { width:100%; height:100%; object-fit:contain; }
+.wrap { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:48px 40px; background:linear-gradient(165deg,#fff5f5 0%,#fff 45%,#f8fafc 100%); }
+.badge { font-size:24px; font-weight:800; color:#B91C1C; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:24px; }
+.stage { flex:1; width:100%; min-height:0; display:flex; align-items:center; justify-content:center; padding:16px; }
+.stage img { max-width:96%; max-height:96%; object-fit:contain; filter:drop-shadow(0 28px 56px rgba(185,28,28,0.15)); }
+.name { font-size:56px; font-weight:900; color:#111; text-align:center; line-height:1.08; margin-top:16px; }
+.sub { font-size:32px; font-weight:600; color:#666; text-align:center; margin-top:16px; }
     `);
   },
   scene2(copy, images) {
-    return baseHtml(`<div class="wrap"><div class="grid3">${copy.products.map((p, i) =>
-      `<div class="bleed"><img src="${images[i]}" alt=""/><div class="lbl">${esc(p.name)}</div></div>`).join('')}</div>${ctaBlock(copy)}</div>`, `
-.wrap { display:flex; flex-direction:column; height:100%; }
-.grid3 { flex:1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px; min-height:0; }
-.bleed { background:#f8f8f8; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px; }
-.bleed img { max-width:100%; max-height:85%; object-fit:contain; }
-.lbl { font-size:16px; font-weight:800; text-align:center; color:#111; margin-top:8px; line-height:1.15; padding:0 4px; }
-.cta { background:#111; padding:40px; text-align:center; }
+    return baseHtml(`<div class="wrap">
+      ${heroImage(images[0], 'stage')}
+      ${ctaBlock(copy)}
+    </div>`, `
+.wrap { height:100%; display:flex; flex-direction:column; background:#fff; }
+.stage { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; padding:64px 40px 32px; background:radial-gradient(circle at 50% 40%, #fef2f2 0%, #fff 70%); }
+.stage img { max-width:98%; max-height:98%; object-fit:contain; }
+.cta { flex-shrink:0; margin:0 40px 56px; background:#111; border-radius:28px; padding:48px 40px; text-align:center; }
+.cta-line { font-size:44px; font-weight:900; color:#fff; }
+.cta-action { font-size:38px; font-weight:800; color:#FFE082; margin-top:12px; }
+    `);
+  },
+};
+
+const heroDark = {
+  scene1(copy, images) {
+    const p = product(copy, images);
+    return baseHtml(`<div class="wrap">
+      <div class="top">${esc(copy.hook)}</div>
+      <div class="card">${heroImage(images[0], 'stage')}</div>
+      <div class="meta">
+        ${categoryBadge(p)}
+        ${productNameBlock(p)}
+      </div>
+    </div>`, `
+.wrap { height:100%; display:flex; flex-direction:column; padding:40px 36px 48px; gap:24px; background:#0a0a0a; }
+.top { text-align:center; font-size:28px; font-weight:800; color:#888; letter-spacing:0.12em; text-transform:uppercase; }
+.card { flex:1; min-height:0; background:#fff; border-radius:32px; display:flex; align-items:center; justify-content:center; padding:40px; box-shadow:0 40px 80px rgba(0,0,0,0.45); }
+.stage { width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
+.stage img { max-width:100%; max-height:100%; object-fit:contain; }
+.meta { text-align:center; }
+.badge { font-size:22px; font-weight:700; color:#B91C1C; text-transform:uppercase; margin-bottom:10px; }
+.name { font-size:50px; font-weight:900; color:#fff; line-height:1.1; }
+    `, true);
+  },
+  scene2(copy, images) {
+    return baseHtml(`<div class="wrap">
+      ${heroImage(images[0], 'stage')}
+      ${ctaBlock(copy)}
+    </div>`, `
+.wrap { height:100%; display:flex; flex-direction:column; background:#0a0a0a; }
+.stage { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; padding:48px 32px 24px; }
+.stage img { max-width:100%; max-height:100%; object-fit:contain; filter:drop-shadow(0 24px 48px rgba(255,255,255,0.08)); }
+.cta { flex-shrink:0; margin:0 36px 52px; background:#B91C1C; border-radius:24px; padding:44px 36px; text-align:center; }
 .cta-line { font-size:42px; font-weight:900; color:#fff; }
-.cta-action { font-size:36px; font-weight:800; color:#FFE082; margin-top:8px; }
-.cta-url { font-size:28px; color:#888; margin-top:6px; }
+.cta-action { font-size:36px; font-weight:800; color:#FFE082; margin-top:10px; }
+    `, true);
+  },
+};
+
+const heroBleed = {
+  scene1(copy, images) {
+    const p = product(copy, images);
+    return baseHtml(`<div class="wrap">
+      ${heroImage(images[0], 'fill')}
+      <div class="bar">
+        <div class="badge">${esc(p.category)}</div>
+        <div class="name">${esc(p.name)}</div>
+      </div>
+    </div>`, `
+.wrap { position:relative; height:100%; background:#fff; }
+.fill { height:100%; display:flex; align-items:center; justify-content:center; padding:120px 24px 280px; }
+.fill img { width:100%; height:100%; object-fit:contain; }
+.bar { position:absolute; left:0; right:0; bottom:0; padding:36px 40px 52px; background:linear-gradient(transparent, rgba(255,255,255,0.95) 30%); }
+.badge { font-size:24px; font-weight:800; color:#B91C1C; text-transform:uppercase; margin-bottom:10px; }
+.name { font-size:54px; font-weight:900; color:#111; line-height:1.08; }
+    `);
+  },
+  scene2(copy, images) {
+    return baseHtml(`<div class="wrap">
+      ${heroImage(images[0], 'fill')}
+      <div class="bar">${ctaBlock(copy)}</div>
+    </div>`, `
+.wrap { position:relative; height:100%; background:#f5f5f5; }
+.fill { height:100%; display:flex; align-items:center; justify-content:center; padding:80px 20px 340px; }
+.fill img { width:100%; height:100%; object-fit:contain; }
+.bar { position:absolute; left:0; right:0; bottom:0; padding:32px 36px 48px; }
+.cta { background:#111; border-radius:24px; padding:40px 36px; text-align:center; }
+.cta-line { font-size:44px; font-weight:900; color:#fff; }
+.cta-action { font-size:38px; font-weight:800; color:#FFE082; margin-top:10px; }
     `);
   },
 };
 
-const stackCards = {
+const heroMagazine = {
   scene1(copy, images) {
-    const rows = copy.products.map((p, i) => `
-      <div class="row"><div class="thumb"><img src="${images[i]}" alt=""/></div>
-        <div class="meta"><div class="cat">${esc(p.category)}</div><div class="name">${esc(p.name)}</div></div></div>`).join('');
-    return baseHtml(`<div class="wrap">${hookBlock(copy, 'minimal')}${rows}</div>`, `
-.wrap { padding:28px 32px; display:flex; flex-direction:column; gap:14px; height:100%; }
-.hook-min { text-align:center; margin-bottom:8px; }
-.pill { background:#B91C1C; color:#fff; font-size:24px; font-weight:800; padding:10px 24px; border-radius:999px; }
-.sub { display:block; font-size:28px; font-weight:700; color:#333; margin-top:10px; }
-.row { flex:1; display:flex; gap:20px; background:#fafafa; border-radius:20px; padding:16px; border:1px solid #eee; align-items:center; min-height:0; }
-.thumb { width:280px; height:100%; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:#fff; border-radius:14px; }
-.thumb img { max-width:92%; max-height:92%; object-fit:contain; }
-.cat { font-size:22px; font-weight:700; color:#B91C1C; text-transform:uppercase; }
-.name { font-size:36px; font-weight:900; color:#111; line-height:1.15; margin-top:8px; }
-    `);
-  },
-  scene2(copy) {
-    return baseHtml(`<div class="wrap">${ctaBlock(copy)}</div>`, `
-.wrap { display:flex; align-items:center; justify-content:center; height:100%; padding:48px; background:linear-gradient(180deg,#fafafa,#fff); }
-.cta { width:100%; background:#B91C1C; border-radius:28px; padding:80px 48px; text-align:center; }
-.cta-line { font-size:56px; font-weight:900; color:#fff; line-height:1.1; }
-.cta-action { font-size:48px; font-weight:800; color:#FFE082; margin-top:20px; }
-.cta-url { font-size:36px; font-weight:600; color:rgba(255,255,255,0.85); margin-top:16px; }
-    `);
-  },
-};
-
-const magazineSplit = {
-  scene1(copy, images) {
-    return baseHtml(`<div class="wrap"><div class="left"><div class="brand">Home Value</div>
-      <div class="h1">${esc(copy.hook)}</div><div class="h2">${esc(copy.hookSub)}</div>
-      <div class="tags">${esc(copy.categoryTags)}</div></div>
-      <div class="right">${copy.products.map((p, i) =>
-        `<div class="item"><img src="${images[i]}" alt=""/><div class="n">${esc(p.name)}</div></div>`).join('')}</div></div>`, `
+    const p = product(copy, images);
+    return baseHtml(`<div class="wrap">
+      <div class="side">
+        <div class="brand">Home Value</div>
+        <div class="hook">${esc(copy.hook)}</div>
+        <div class="sub">${esc(copy.hookSub)}</div>
+        <div class="cat">${esc(p.category)}</div>
+      </div>
+      <div class="main">
+        ${heroImage(images[0], 'stage')}
+        ${productNameBlock(p)}
+      </div>
+    </div>`, `
 .wrap { display:flex; height:100%; }
-.left { width:380px; background:#111; color:#fff; padding:40px 32px; display:flex; flex-direction:column; justify-content:center; }
-.brand { font-size:28px; font-weight:800; color:#B91C1C; margin-bottom:32px; }
-.h1 { font-size:44px; font-weight:900; line-height:1.1; }
-.h2 { font-size:28px; font-weight:600; color:#ccc; margin-top:16px; line-height:1.3; }
-.tags { font-size:18px; font-weight:600; color:#888; margin-top:24px; line-height:1.4; }
-.right { flex:1; display:flex; flex-direction:column; gap:8px; padding:8px; background:#f0f0f0; }
-.item { flex:1; background:#fff; border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:12px; min-height:0; }
-.item img { max-width:90%; max-height:75%; object-fit:contain; }
-.n { font-size:16px; font-weight:800; text-align:center; margin-top:6px; color:#111; }
+.side { width:300px; background:#B91C1C; color:#fff; padding:48px 28px; display:flex; flex-direction:column; justify-content:center; }
+.brand { font-size:26px; font-weight:800; opacity:0.9; margin-bottom:40px; }
+.hook { font-size:40px; font-weight:900; line-height:1.1; }
+.sub { font-size:24px; font-weight:600; margin-top:20px; opacity:0.85; line-height:1.35; }
+.cat { font-size:18px; font-weight:700; margin-top:32px; text-transform:uppercase; letter-spacing:0.06em; opacity:0.75; }
+.main { flex:1; display:flex; flex-direction:column; background:#fafafa; padding:32px 28px 40px; }
+.stage { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; }
+.stage img { max-width:100%; max-height:100%; object-fit:contain; }
+.name { font-size:42px; font-weight:900; color:#111; text-align:center; line-height:1.1; margin-top:16px; }
     `);
   },
-  scene2: fullBleed.scene2,
+  scene2(copy, images) {
+    return baseHtml(`<div class="wrap">
+      ${heroImage(images[0], 'stage')}
+      ${ctaBlock(copy)}
+    </div>`, `
+.wrap { height:100%; display:flex; flex-direction:column; background:#fff; padding:40px 36px 48px; gap:28px; }
+.stage { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; background:#f8f8f8; border-radius:28px; padding:32px; }
+.stage img { max-width:100%; max-height:100%; object-fit:contain; }
+.cta { flex-shrink:0; background:#B91C1C; border-radius:24px; padding:44px 36px; text-align:center; }
+.cta-line { font-size:44px; font-weight:900; color:#fff; }
+.cta-action { font-size:38px; font-weight:800; color:#FFE082; margin-top:10px; }
+    `);
+  },
+};
+
+const heroSpotlight = {
+  scene1(copy, images) {
+    const p = product(copy, images);
+    return baseHtml(`<div class="wrap">
+      <div class="spot">${heroImage(images[0], 'stage')}</div>
+      <div class="info">
+        ${categoryBadge(p)}
+        ${productNameBlock(p)}
+      </div>
+    </div>`, `
+.wrap { height:100%; display:flex; flex-direction:column; background:#111; }
+.spot { flex:1; min-height:0; display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at 50% 45%, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.04) 35%, transparent 65%); padding:48px 36px; }
+.stage { width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
+.stage img { max-width:100%; max-height:100%; object-fit:contain; filter:drop-shadow(0 32px 64px rgba(0,0,0,0.5)); }
+.info { flex-shrink:0; text-align:center; padding:32px 40px 56px; background:linear-gradient(transparent, #111); }
+.badge { font-size:22px; font-weight:700; color:#B91C1C; text-transform:uppercase; margin-bottom:12px; }
+.name { font-size:52px; font-weight:900; color:#fff; line-height:1.08; }
+    `, true);
+  },
+  scene2(copy, images) {
+    return baseHtml(`<div class="wrap">
+      <div class="spot">${heroImage(images[0], 'stage')}</div>
+      ${ctaBlock(copy)}
+    </div>`, `
+.wrap { height:100%; display:flex; flex-direction:column; background:#111; padding-bottom:48px; }
+.spot { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; padding:56px 32px 24px;
+  background:radial-gradient(circle at 50% 42%, rgba(255,255,255,0.12) 0%, transparent 60%); }
+.stage { width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
+.stage img { max-width:100%; max-height:100%; object-fit:contain; }
+.cta { flex-shrink:0; margin:0 36px; background:#fff; border-radius:24px; padding:44px 36px; text-align:center; }
+.cta-line { font-size:42px; font-weight:900; color:#111; }
+.cta-action { font-size:36px; font-weight:800; color:#B91C1C; margin-top:10px; }
+    `, true);
+  },
 };
 
 export const FORMAT_RENDERERS = {
-  'clean-row': cleanRow,
-  'hero-duo': heroDuo,
-  'dark-luxe': darkLuxe,
-  'full-bleed': fullBleed,
-  'stack-cards': stackCards,
-  'magazine-split': magazineSplit,
+  'hero-center': heroCenter,
+  'hero-glow': heroGlow,
+  'hero-dark': heroDark,
+  'hero-bleed': heroBleed,
+  'hero-magazine': heroMagazine,
+  'hero-spotlight': heroSpotlight,
 };
 
 export function renderScene(formatId, sceneNum, copy, productImages) {

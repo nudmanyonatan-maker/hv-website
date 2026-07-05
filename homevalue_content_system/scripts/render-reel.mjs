@@ -48,7 +48,7 @@ const batchId = products.map((p) => p.productId).join('-');
 const copy = buildReelCopy(products, catMap, brand);
 
 console.log(`Format: ${format.name} (${format.id})`);
-console.log(`Products (${products.length}) — mixed categories:`);
+console.log(`Product:`);
 products.forEach((p) => console.log(`  • [${categoryName(catMap, p.categoryId)}] ${p.name}`));
 
 const productImages = await Promise.all(

@@ -15,7 +15,11 @@ export function categoryName(catMap, categoryId, fallback = 'Wholesale') {
 export function cleanProductName(name) {
   let n = name
     .replace(/\(QTY[^)]*\)/gi, '')
+    .replace(/\(QTY\/CTN[^)]*\)/gi, '')
     .replace(/QTY\/CTN[^)]*\)?/gi, '')
+    .replace(/QTY\.\/CTN\.[^)]*\)?/gi, '')
+    .replace(/\(\s*\)/g, '')
+    .replace(/\s+\)/g, '')
     .replace(/\s+/g, ' ')
     .trim();
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Publish multiple Reels in one run (each Reel = multiple products).
+ * Publish multiple carousels in one run.
  * Usage: node scripts/publish-batch.mjs [--count 3] [--dry-run]
  */
 
@@ -14,16 +14,16 @@ const ROOT = join(__dirname, '..');
 const schedule = JSON.parse(readFileSync(join(ROOT, 'config/schedule.json'), 'utf8'));
 
 const countArg = process.argv.indexOf('--count');
-const count = countArg >= 0 ? parseInt(process.argv[countArg + 1], 10) : (schedule.reelsPerBatch || 3);
+const count = countArg >= 0 ? parseInt(process.argv[countArg + 1], 10) : (schedule.carouselsPerBatch || 1);
 const dryRun = process.argv.includes('--dry-run');
 
-console.log(`Publishing ${count} Reel(s) (${schedule.productsPerReel || 3} products each)...\n`);
+console.log(`Publishing ${count} carousel(s) (${schedule.productsPerCarousel || 6} products each)...\n`);
 
 for (let i = 0; i < count; i++) {
-  console.log(`\n════════ Reel ${i + 1} of ${count} ════════`);
+  console.log(`\n════════ Carousel ${i + 1} of ${count} ════════`);
   const cmd = dryRun
-    ? 'node scripts/publish-next.mjs --dry-run'
-    : 'node scripts/publish-next.mjs';
+    ? 'node scripts/publish-carousel.mjs --dry-run'
+    : 'node scripts/publish-carousel.mjs';
   execSync(cmd, { cwd: ROOT, stdio: 'inherit', env: process.env });
   if (!dryRun && i < count - 1) {
     console.log('Waiting 30s before next publish (rate limit)...');
@@ -31,4 +31,4 @@ for (let i = 0; i < count; i++) {
   }
 }
 
-console.log(`\n✓ Batch complete — ${count} Reel(s) published`);
+console.log(`\n✓ Batch complete — ${count} carousel(s) published`);

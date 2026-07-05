@@ -1,0 +1,8 @@
+[
+  { "id": "clean", "name": "Clean White" },
+  { "id": "dark", "name": "Dark Luxe" },
+  { "id": "gradient", "name": "Soft Gradient" },
+  { "id": "editorial", "name": "Editorial" },
+  { "id": "spotlight", "name": "Spotlight" },
+  { "id": "minimal", "name": "Minimal Bleed" }
+]

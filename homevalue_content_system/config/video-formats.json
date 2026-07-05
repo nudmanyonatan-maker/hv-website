@@ -1,38 +1,38 @@
 [
   {
-    "id": "clean-row",
-    "name": "Clean Row",
-    "description": "Three products in a row — pictures dominate, minimal text",
+    "id": "hero-center",
+    "name": "Hero Center",
+    "description": "One product, dead center, fills the frame",
     "sceneCount": 2
   },
   {
-    "id": "hero-duo",
-    "name": "Hero + Duo",
-    "description": "One large hero product, two smaller below — editorial layout",
+    "id": "hero-glow",
+    "name": "Hero Glow",
+    "description": "Big product on soft gradient with category badge",
     "sceneCount": 2
   },
   {
-    "id": "dark-luxe",
-    "name": "Dark Luxe",
-    "description": "Dark background, products on white cards — premium catalog feel",
+    "id": "hero-dark",
+    "name": "Hero Dark",
+    "description": "Dark premium backdrop, product pops on white card",
     "sceneCount": 2
   },
   {
-    "id": "full-bleed",
-    "name": "Full Bleed",
-    "description": "Edge-to-edge product photos, tiny hook strip, max visual impact",
+    "id": "hero-bleed",
+    "name": "Hero Bleed",
+    "description": "Edge-to-edge product photo, almost no chrome",
     "sceneCount": 2
   },
   {
-    "id": "stack-cards",
-    "name": "Stack Cards",
-    "description": "Stacked product cards with category labels — varied vertical rhythm",
+    "id": "hero-magazine",
+    "name": "Hero Magazine",
+    "description": "Editorial side panel + towering product shot",
     "sceneCount": 2
   },
   {
-    "id": "magazine-split",
-    "name": "Magazine Split",
-    "description": "Hook panel + tall product column — asymmetric professional layout",
+    "id": "hero-spotlight",
+    "name": "Hero Spotlight",
+    "description": "Spotlight vignette, product front and center",
     "sceneCount": 2
   }
 ]
