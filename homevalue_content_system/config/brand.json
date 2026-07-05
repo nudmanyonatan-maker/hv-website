@@ -1,7 +1,8 @@
 {
   "name": "Home Value",
   "legalName": "Home Value LLC",
-  "handle": "@FILL_IN_IG_HANDLE",
+  "handle": "@hvhomevalue",
+  "instagramUrl": "https://instagram.com/hvhomevalue",
   "website": "https://hv-website-phi.vercel.app",
   "registerUrl": "https://hv-website-phi.vercel.app/en/register",
   "loginUrl": "https://hv-website-phi.vercel.app/en/login",

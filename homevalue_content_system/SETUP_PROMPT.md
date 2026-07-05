@@ -8,7 +8,7 @@ Fill in the **6 blanks** below, then paste this entire file into a fresh Claude 
 
 ```
 BRAND_NAME=Home Value
-IG_HANDLE=@_______________          ← your real Instagram handle
+IG_HANDLE=@hvhomevalue
 WEBSITE=https://hv-website-phi.vercel.app
 WHAT_THEY_SELL=Wholesale food, cookware, home goods, and oriental authentic products for grocery stores, restaurants, and supermarkets (B2B — login required for pricing)
 BRAND_COLORS=primary #b91c1c, background #FAFAF8, text #1a1a1a

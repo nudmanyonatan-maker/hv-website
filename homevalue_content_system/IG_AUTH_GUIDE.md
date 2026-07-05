@@ -1,6 +1,29 @@
 # Instagram Auth for Home Value Content System
 
-Home Value posts through **Composio** (recommended — same as the template system) or directly via **Meta's Instagram Graph API**. Composio is the fastest path: one OAuth click, no Facebook Developer app setup.
+## Already connected (Composio)
+
+Home Value Instagram is **live on Composio**:
+
+| Field | Value |
+|---|---|
+| Account | **@hvhomevalue** (Home Value) |
+| Composio ID | `instagram_lovely-tolan` |
+| Alias | `HomeValue` |
+| IG User ID | `27741817182104982` |
+| Status | ACTIVE |
+
+**Do NOT use the Vantage account** (`instagram_story-algid` / `@vantagepeptide`) — that's a separate brand.
+
+All Composio Instagram calls must pass:
+```
+connected_account_id: "instagram_lovely-tolan"
+```
+
+Config is pinned in `config/composio.json`.
+
+---
+
+Home Value posts through **Composio** or directly via **Meta's Instagram Graph API**. Composio is already set up — no re-auth needed unless the token expires.
 
 ---
 

@@ -1,0 +1,16 @@
+{
+  "instagram": {
+    "accountId": "instagram_lovely-tolan",
+    "alias": "HomeValue",
+    "username": "hvhomevalue",
+    "igUserId": "27741817182104982",
+    "status": "ACTIVE",
+    "doNotUse": {
+      "accountId": "instagram_story-algid",
+      "alias": "Vantage",
+      "username": "vantagepeptide",
+      "reason": "Vantage Peptide account — separate brand, never use for Home Value"
+    }
+  },
+  "notes": "Always pass connected_account_id: instagram_lovely-tolan on every Composio Instagram tool call."
+}
