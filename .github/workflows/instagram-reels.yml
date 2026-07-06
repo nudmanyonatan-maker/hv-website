@@ -1,11 +1,10 @@
 name: Home Value Instagram Reels
 
-# Primary automation — runs ON this repo via GitHub Actions (no Cursor Automations UI needed).
-# Launches a Cursor Cloud Agent via API; agent publishes via Composio MCP.
+# Runs on this repo — no Cursor Automations UI needed.
+# Uses CURSOR_API_KEY (preferred) or COMPOSIO_API_KEY (fallback).
 #
-# Required secrets:
-#   CURSOR_API_KEY     — cursor.com/dashboard → API Keys
-#   FULLVENDOR_TOKEN   — FullVendor API key
+# Required: FULLVENDOR_TOKEN
+# Plus one of: CURSOR_API_KEY | COMPOSIO_API_KEY
 
 on:
   schedule:
@@ -19,10 +18,31 @@ on:
 jobs:
   publish-reel:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 25
     steps:
-      - name: Launch Cursor Cloud Agent
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install system deps
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
+      - name: Install dependencies
+        working-directory: homevalue_content_system
+        run: npm ci
+
+      - name: Setup music library
+        working-directory: homevalue_content_system
+        run: node scripts/setup-music.mjs
+
+      - name: Publish next reel
+        working-directory: homevalue_content_system
         env:
           CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+          COMPOSIO_API_KEY: ${{ secrets.COMPOSIO_API_KEY }}
           FULLVENDOR_TOKEN: ${{ secrets.FULLVENDOR_TOKEN }}
-        run: node homevalue_content_system/scripts/trigger-cursor-agent.mjs
+        run: node scripts/ci-publish.mjs
