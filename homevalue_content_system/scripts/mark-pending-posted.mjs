@@ -5,6 +5,12 @@ import { readFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { markPosted } from './pick-next.mjs';
+import {
+  isFoodCategory,
+  markFoodPosted,
+  foodPostsToday,
+  foodRequiredPerDay,
+} from './lib/food-schedule.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -12,4 +18,13 @@ const pendingPath = join(ROOT, 'content/state/pending-publish.json');
 
 const pending = JSON.parse(readFileSync(pendingPath, 'utf8'));
 markPosted(pending.productIds, pending.categoryId);
+
+const wasFood = pending.isFood || isFoodCategory(pending.categoryId);
+if (wasFood) {
+  markFoodPosted();
+}
+
 console.log(`✓ Marked ${pending.productIds.length} products posted (${pending.category})`);
+if (wasFood) {
+  console.log(`✓ Food posts today: ${foodPostsToday()}/${foodRequiredPerDay()}`);
+}

@@ -12,6 +12,7 @@ import puppeteer from 'puppeteer';
 import { buildCarouselCopy } from './lib/carousel-copy.mjs';
 import { renderCoverSlide, renderCtaSlide, renderProductSlide, styleForIndex } from './lib/carousel-slides.mjs';
 import { pickNextProducts } from './pick-next.mjs';
+import { closeQualityBrowser } from './lib/image-quality.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -37,7 +38,11 @@ if (idsArg >= 0) {
     return p;
   });
 } else {
-  ({ products } = pickNextProducts(productCount));
+  try {
+    ({ products } = await pickNextProducts(productCount));
+  } finally {
+    await closeQualityBrowser();
+  }
 }
 
 const copy = buildCarouselCopy(products, catMap, brand);

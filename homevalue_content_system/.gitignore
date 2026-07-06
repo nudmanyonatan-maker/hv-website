@@ -4,4 +4,5 @@ content/reels/*.mp4
 content/carousels/**/*.jpg
 content/tmp/
 content/state/pending-publish.json
+content/state/daily-food.json
 node_modules/

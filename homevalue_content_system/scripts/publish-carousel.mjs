@@ -11,6 +11,7 @@ import { execSync } from 'child_process';
 import { pickNextProducts, markPosted } from './pick-next.mjs';
 import { uploadImage } from './upload-catbox.mjs';
 import { postLinkComment } from './post-link-comment.mjs';
+import { closeQualityBrowser } from './lib/image-quality.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -20,7 +21,12 @@ const schedule = JSON.parse(readFileSync(join(ROOT, 'config/schedule.json'), 'ut
 const dryRun = process.argv.includes('--dry-run');
 const productCount = schedule.productsPerCarousel || 6;
 
-const { products } = pickNextProducts(productCount);
+let products;
+try {
+  ({ products } = await pickNextProducts(productCount));
+} finally {
+  await closeQualityBrowser();
+}
 const batchId = products.map((p) => p.productId).join('-');
 const idList = products.map((p) => p.productId).join(',');
 
