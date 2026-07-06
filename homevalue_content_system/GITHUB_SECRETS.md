@@ -1,56 +1,59 @@
-# GitHub Actions setup (recommended — works without Cursor Automations UI)
+# GitHub Actions setup (recommended)
 
-The Cursor Automations repo picker only shows repos granted to the **Cursor GitHub App**. If `hv-website` doesn't appear, use **GitHub Actions** instead — it runs directly on this repo and doesn't need the dropdown.
+Runs directly on this repo — no Cursor Automations UI needed.
 
-## One-time setup (2 secrets)
+## Current secret status (as of last CI run)
 
-In **GitHub → YonatanNudman/hv-website → Settings → Secrets and variables → Actions**:
-
-| Secret | Where to get it |
+| Secret | Status |
 |---|---|
-| `CURSOR_API_KEY` | [cursor.com/dashboard](https://cursor.com/dashboard) → **API Keys** → Create key |
-| `FULLVENDOR_TOKEN` | FullVendor admin → API key |
+| `FULLVENDOR_TOKEN` | ✅ Set and working (catalog sync + render succeed) |
+| `COMPOSIO_API_KEY` | ⚠️ Set but **invalid** — CI fails with `Invalid API key: ak_**vN9k` (401) |
+| `CURSOR_API_KEY` | ❓ Not verified — add this for the recommended path |
 
-Or from your machine:
+## Fix (pick one)
+
+### Option A — Recommended: add `CURSOR_API_KEY`
+
+1. Go to [cursor.com/dashboard](https://cursor.com/dashboard) → **API Keys** → Create key
+2. Add to GitHub: **Settings → Secrets → Actions → New secret**
+   - Name: `CURSOR_API_KEY`
+   - Value: your Cursor API key
+
+The workflow will launch a Cursor Cloud Agent that publishes via Composio MCP (no `ak_` key needed).
+
+### Option B — Fix existing `COMPOSIO_API_KEY`
+
+1. Go to [app.composio.dev](https://app.composio.dev) → **Settings → Project Settings → API Keys**
+2. Create a new **Project API key** (`ak_…`) — NOT the MCP consumer key (`ck_`)
+3. Update the `COMPOSIO_API_KEY` secret in GitHub
+
+## One-command setup
 
 ```bash
 CURSOR_API_KEY=your_cursor_key FULLVENDOR_TOKEN=your_token \
   bash homevalue_content_system/scripts/setup-github-secrets.sh
 ```
 
-## Test immediately
+Or with Composio REST fallback:
+
+```bash
+CURSOR_API_KEY=your_cursor_key COMPOSIO_API_KEY=your_ak_key FULLVENDOR_TOKEN=your_token \
+  bash homevalue_content_system/scripts/setup-github-secrets.sh
+```
+
+## Test
 
 ```bash
 gh workflow run "Home Value Instagram Reels"
 ```
 
-Then watch the agent at the URL printed in the workflow log, or check [cursor.com/agents](https://cursor.com/agents).
+Watch the run at **GitHub → Actions**. If using `CURSOR_API_KEY`, the log will show a link to the cloud agent run.
 
 ## Schedule
 
-Runs automatically **5× daily** at 9am, 12pm, 3pm, 6pm, 9pm Eastern.
+5× daily at 9am, 12pm, 3pm, 6pm, 9pm Eastern.
 
-- **2 food Reels guaranteed per day** (until quota met, picks food category)
+- **2 food Reels guaranteed per day**
 - **Bad product images skipped** automatically
-
-## How it works
-
-1. GitHub Actions cron fires on this repo
-2. `trigger-cursor-agent.mjs` calls Cursor Cloud Agents API with repo URL explicitly set
-3. Cloud agent runs `prepare-reel.mjs` → publishes via Composio MCP → marks posted
-
-No Composio `ak_` API key needed — the cloud agent uses Composio MCP (same as manual Cursor chat).
-
-## Optional: fix Cursor Automations UI (if you want the dashboard)
-
-Your automation only shows `nudmanyonatan-maker/launchq` because the Cursor GitHub App isn't granted access to `YonatanNudman/hv-website`.
-
-Fix:
-
-1. Open [cursor.com/dashboard/integrations](https://cursor.com/dashboard/integrations)
-2. **GitHub → Manage Connections**
-3. If `hv-website` is on a **different GitHub account** than `launchq`, connect that account too
-4. Or on GitHub: **Settings → Applications → Cursor → Configure** → add `YonatanNudman/hv-website`
-5. Click **Refresh** in the automation repo picker
 
 Composio Instagram account: **`instagram_lovely-tolan`** (@hvhomevalue) — never Vantage.
