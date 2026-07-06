@@ -38,7 +38,7 @@ if (idsArg >= 0) {
   });
   categoryId = products[0]?.categoryId;
 } else {
-  ({ products, categoryId } = pickNextProducts(perReel));
+  ({ products, categoryId } = await pickNextProducts(perReel));
 }
 
 const copy = buildReelCopy(products, catMap, brand);

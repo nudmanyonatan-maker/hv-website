@@ -11,6 +11,8 @@ import { execSync } from 'child_process';
 import { pickNextProducts, markPosted } from './pick-next.mjs';
 import { uploadVideo } from './upload-catbox.mjs';
 import { postLinkComment } from './post-link-comment.mjs';
+import { closeQualityBrowser } from './lib/image-quality.mjs';
+import { isFoodCategory, markFoodPosted } from './lib/food-schedule.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -20,7 +22,13 @@ const schedule = JSON.parse(readFileSync(join(ROOT, 'config/schedule.json'), 'ut
 const dryRun = process.argv.includes('--dry-run');
 const perReel = schedule.productsPerReel || 6;
 
-const { products, categoryId } = pickNextProducts(perReel);
+let products;
+let categoryId;
+try {
+  ({ products, categoryId } = await pickNextProducts(perReel));
+} finally {
+  await closeQualityBrowser();
+}
 const batchId = products.map((p) => p.productId).join('-');
 const idList = products.map((p) => p.productId).join(',');
 

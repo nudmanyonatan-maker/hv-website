@@ -13,6 +13,8 @@ import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
 import { pickNextProducts } from './pick-next.mjs';
 import { uploadVideo } from './upload-catbox.mjs';
+import { foodQuotaRemaining, foodRequiredPerDay, foodPostsToday } from './lib/food-schedule.mjs';
+import { closeQualityBrowser } from './lib/image-quality.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -25,7 +27,21 @@ if (process.env.FULLVENDOR_TOKEN) {
   execSync('node scripts/sync-catalog.mjs', { cwd: ROOT, stdio: 'inherit' });
 }
 
-const { products, categoryId } = pickNextProducts(perReel);
+let products;
+let categoryId;
+let isFood;
+let imageRejected = [];
+
+try {
+  const picked = await pickNextProducts(perReel);
+  products = picked.products;
+  categoryId = picked.categoryId;
+  isFood = picked.isFood;
+  imageRejected = picked.imageRejected || [];
+} finally {
+  await closeQualityBrowser();
+}
+
 const batchId = products.map((p) => p.productId).join('-');
 const idList = products.map((p) => p.productId).join(',');
 
@@ -48,6 +64,11 @@ const prepared = {
   linkComment: manifest.copy?.linkComment,
   category: manifest.category,
   categoryId,
+  isFood,
+  foodPostsToday: foodPostsToday(),
+  foodRequiredPerDay: foodRequiredPerDay(),
+  foodQuotaRemaining: foodQuotaRemaining(),
+  imageRejectedCount: imageRejected.length,
   productIds: products.map((p) => p.productId),
   music: manifest.music,
   composio: {
