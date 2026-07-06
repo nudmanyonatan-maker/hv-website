@@ -1,4 +1,7 @@
-name: Home Value Instagram Reels
+name: Home Value Instagram Reels (backup)
+
+# Optional backup — prefer Cursor Automation (see homevalue_content_system/CURSOR_AUTOMATION.md)
+# Requires GitHub secrets: FULLVENDOR_TOKEN + COMPOSIO_API_KEY (ak_… Project key)
 
 on:
   schedule:

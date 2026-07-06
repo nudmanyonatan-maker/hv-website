@@ -23,37 +23,25 @@ See **[IG_AUTH_GUIDE.md](./IG_AUTH_GUIDE.md)** for account details.
 
 ## Automated schedule — 5 Reels/day
 
-| Time (ET) | UTC cron |
+**Recommended: [Cursor Automation](./CURSOR_AUTOMATION.md)** — uses Composio MCP (no GitHub secrets for Instagram).
+
+| Time (ET) | Cron |
 |---|---|
-| 9:00 AM | 13:00 |
-| 12:00 PM | 16:00 |
-| 3:00 PM | 19:00 |
-| 6:00 PM | 22:00 |
-| 9:00 PM | 01:00 |
+| 9:00 AM | `CRON_TZ=America/New_York 0 9 * * *` |
+| 12:00 PM | `CRON_TZ=America/New_York 0 12 * * *` |
+| 3:00 PM | `CRON_TZ=America/New_York 0 15 * * *` |
+| 6:00 PM | `CRON_TZ=America/New_York 0 18 * * *` |
+| 9:00 PM | `CRON_TZ=America/New_York 0 21 * * *` |
 
-GitHub Actions workflow: `.github/workflows/instagram-reels.yml`
+Setup: https://cursor.com/automations/new — see **[CURSOR_AUTOMATION.md](./CURSOR_AUTOMATION.md)**
 
-**Required secrets:** `FULLVENDOR_TOKEN`, `COMPOSIO_API_KEY`
+**Optional backup:** GitHub Actions (`.github/workflows/instagram-reels.yml`) — needs `FULLVENDOR_TOKEN` + `COMPOSIO_API_KEY` (`ak_…`) in GitHub secrets.
 
 Each post:
-- Picks a different in-stock product (rotation state in `content/state/rotation.json`)
-- Renders a professional Reel — product image top, text panel bottom, **no overlap**
-- Includes valuable B2B context + wholesale registration CTA
-- Publishes to @hvhomevalue only
-
-## Reel format (v2 — clean 3-scene)
-
-Each Reel is **12 seconds**, 3 scenes with smooth fades:
-
-| Scene | What the viewer sees |
-|---|---|
-| **1** | Product hero + "WHOLESALE ONLY" + name & case size |
-| **2** | Product + **"Own a store, restaurant, or shop?"** callout |
-| **3** | Numbered steps: ① Visit site ② Register ③ Login & order + big red CTA button |
-
-- White background, lots of space — nothing overlaps the product
-- Simple words a kid could follow
-- Every post calls out **business owners** and shows **exactly how to buy**
+- **One category** per Reel — 6 products, carousel-style video (~20 sec)
+- Big product photos, rotating background music (12 tracks)
+- Publishes to @hvhomevalue via Composio
+- Link to catalog in first comment → `homevalue.fullvendor.com/en`
 
 ## What's reusable vs. per-brand
 
