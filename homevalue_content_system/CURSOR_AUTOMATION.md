@@ -1,6 +1,40 @@
 # Cursor Automation — @hvhomevalue Reels (5×/day)
 
-Use **Cursor Automations** instead of GitHub Actions. Composio MCP is already connected in Cursor — no `ak_` API key needed for publishing.
+> **Can't select the repo in Automations UI?** Use [GitHub Actions instead](GITHUB_SECRETS.md) — it works without the repo dropdown.
+
+Use **Cursor Automations** OR **GitHub Actions**. Both launch a cloud agent that publishes via Composio MCP (no `ak_` API key needed).
+
+## Why the repo doesn't appear in Automations
+
+Your GitHub integration only shows repos granted to the **Cursor GitHub App**. If you see `nudmanyonatan-maker/launchq` but not `YonatanNudman/hv-website`, the app doesn't have access to `hv-website` yet.
+
+**Fix (2 minutes):**
+
+1. Open [cursor.com/dashboard/integrations](https://cursor.com/dashboard/integrations)
+2. **GitHub → Manage Connections**
+3. If `hv-website` lives on a **different GitHub account** than `launchq`, connect that account
+4. On GitHub: **Settings → Applications → Cursor → Configure** → grant `YonatanNudman/hv-website`
+5. In the automation, click **Refresh** on the repo picker
+
+**Why the agent can't configure this for you:** Cursor Automations run in your logged-in browser session. This cloud agent has no access to your Cursor login or browser — and the Browser automation tool isn't available in this environment.
+
+---
+
+## Recommended: GitHub Actions (no repo picker needed)
+
+See **[GITHUB_SECRETS.md](GITHUB_SECRETS.md)** — add `CURSOR_API_KEY` + `FULLVENDOR_TOKEN`, then:
+
+```bash
+gh workflow run "Home Value Instagram Reels"
+```
+
+This calls the Cursor Cloud Agents API with the repo URL directly. Works even when the Automations UI can't select the repo.
+
+---
+
+## Alternative: Cursor Automations UI
+
+Use **Cursor Automations** if you've fixed GitHub repo access above.
 
 ## Why Cursor instead of GitHub?
 

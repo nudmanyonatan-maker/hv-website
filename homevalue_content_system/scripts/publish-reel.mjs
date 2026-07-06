@@ -12,6 +12,7 @@ import { pickNextProducts, markPosted } from './pick-next.mjs';
 import { uploadVideo } from './upload-catbox.mjs';
 import { postLinkComment } from './post-link-comment.mjs';
 import { closeQualityBrowser } from './lib/image-quality.mjs';
+import { isFoodCategory, markFoodPosted } from './lib/food-schedule.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');

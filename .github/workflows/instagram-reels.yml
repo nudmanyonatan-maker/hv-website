@@ -1,55 +1,28 @@
-name: Home Value Instagram Reels (backup)
+name: Home Value Instagram Reels
 
-# Optional backup — prefer Cursor Automation (see homevalue_content_system/CURSOR_AUTOMATION.md)
-# Requires GitHub secrets: FULLVENDOR_TOKEN + COMPOSIO_API_KEY (ak_… Project key)
+# Primary automation — runs ON this repo via GitHub Actions (no Cursor Automations UI needed).
+# Launches a Cursor Cloud Agent via API; agent publishes via Composio MCP.
+#
+# Required secrets:
+#   CURSOR_API_KEY     — cursor.com/dashboard → API Keys
+#   FULLVENDOR_TOKEN   — FullVendor API key
 
 on:
   schedule:
-    - cron: '0 13 * * *'
-    - cron: '0 16 * * *'
-    - cron: '0 19 * * *'
-    - cron: '0 22 * * *'
-    - cron: '0 1 * * *'
+    - cron: '0 13 * * *'   # 9am ET
+    - cron: '0 16 * * *'   # 12pm ET
+    - cron: '0 19 * * *'   # 3pm ET
+    - cron: '0 22 * * *'   # 6pm ET
+    - cron: '0 1 * * *'    # 9pm ET
   workflow_dispatch:
 
 jobs:
   publish-reel:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Install system deps
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg
-
-      - name: Install dependencies
-        working-directory: homevalue_content_system
-        run: npm ci
-
-      - name: Setup music library
-        working-directory: homevalue_content_system
-        run: node scripts/setup-music.mjs
-
-      - name: Sync catalog
-        working-directory: homevalue_content_system
+      - name: Launch Cursor Cloud Agent
         env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
           FULLVENDOR_TOKEN: ${{ secrets.FULLVENDOR_TOKEN }}
-        run: node scripts/sync-catalog.mjs
-
-      - name: Verify Composio API key
-        working-directory: homevalue_content_system
-        env:
-          COMPOSIO_API_KEY: ${{ secrets.COMPOSIO_API_KEY }}
-        run: node scripts/verify-composio.mjs
-
-      - name: Publish next reel
-        working-directory: homevalue_content_system
-        env:
-          COMPOSIO_API_KEY: ${{ secrets.COMPOSIO_API_KEY }}
-        run: node scripts/publish-next.mjs
+        run: node homevalue_content_system/scripts/trigger-cursor-agent.mjs
