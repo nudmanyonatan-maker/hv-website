@@ -1,6 +1,8 @@
-# Cursor Automation — @hvhomevalue Reels (5×/day)
+# Cursor Automation — @hvhomevalue (2 posts/day)
 
 > **Can't select the repo in Automations UI?** Use [GitHub Actions instead](GITHUB_SECRETS.md) — it works without the repo dropdown.
+
+**Schedule:** 1 carousel (10am ET) + 1 single product image (3pm ET) per day.
 
 Use **Cursor Automations** OR **GitHub Actions**. Both launch a cloud agent that publishes via Composio MCP (no `ak_` API key needed).
 
@@ -25,7 +27,9 @@ Your GitHub integration only shows repos granted to the **Cursor GitHub App**. I
 See **[GITHUB_SECRETS.md](GITHUB_SECRETS.md)** — add `CURSOR_API_KEY` + `FULLVENDOR_TOKEN`, then:
 
 ```bash
-gh workflow run "Home Value Instagram Reels"
+gh workflow run "Home Value Instagram Posts" -f format=carousel
+# or
+gh workflow run "Home Value Instagram Posts" -f format=single
 ```
 
 This calls the Cursor Cloud Agents API with the repo URL directly. Works even when the Automations UI can't select the repo.
@@ -115,94 +119,51 @@ Fix all five, then run a manual test (see below).
 
 ---
 
-## Daily food guarantee (2 food Reels/day)
+## Daily food guarantee (2 food posts/day)
 
 The pipeline tracks food posts in `content/state/daily-food.json`.
 
-- **2 food carousel Reels required every day** (category: Oriental Authentic Food & Drink)
-- Until the daily food quota is met, `prepare-reel.mjs` **always picks food**
-- After 2 food posts, remaining runs pick other wholesale categories
-- `mark-pending-posted.mjs` increments the food counter when a food Reel is published
+- **2 food posts required every day** (carousel or single image)
+- Until quota is met, `prepare-post.mjs` **always picks food**
+- `mark-pending-posted.mjs` increments the food counter after publish
 
 ---
 
-## Image quality filter
+## Product image layout
 
-Bad supplier photos (tiny, blank, mostly white/black, wrong aspect ratio) are **automatically skipped** during product selection. The Reel only uses products whose images score well — no more awkward crops from empty or low-res photos.
+Product slides use a **hero card** layout — full product visible inside a white frame with name and pack size below. No more blown-up crops where you can't tell what the SKU is.
 
 ---
 
 ## Automation prompt
 
-Copy this entire block into the automation prompt field:
+Use two scheduled triggers (10am ET carousel, 3pm ET single) or run via GitHub Actions.
 
 ```
-You are the Home Value Instagram Reel publisher for @hvhomevalue. Publish exactly ONE Reel per run, then stop.
+You are the Home Value Instagram publisher for @hvhomevalue. Publish exactly ONE post, then stop.
 
-## Account (never change)
-- Instagram: @hvhomevalue
-- Composio account: instagram_lovely-tolan (NEVER instagram_story-algid / @vantagepeptide)
-- IG User ID: 27741817182104982
-
-## Step 1 — Prepare Reel (render + upload)
-Run from repo root:
-  cd homevalue_content_system && node scripts/prepare-reel.mjs
-
-This outputs JSON with videoUrl, caption, linkComment, and composio publish args.
-Read content/state/pending-publish.json if needed.
-
-The script automatically:
-- Picks FOOD products when daily food quota (2/day) is not yet met
-- Skips low-quality product images (tiny, blank, bad aspect ratio)
-
-Check isFood and foodQuotaRemaining in the output JSON.
+## Step 1 — Prepare
+  cd homevalue_content_system && POST_FORMAT=carousel node scripts/prepare-post.mjs
+  (or POST_FORMAT=single for the afternoon image post)
 
 ## Step 2 — Publish via Composio MCP
-Use COMPOSIO_MULTI_EXECUTE_TOOL on the composio server:
-
-1. INSTAGRAM_POST_IG_USER_MEDIA
-   account: instagram_lovely-tolan
-   arguments: ig_user_id, video_url, caption, media_type REELS, share_to_feed true
-
-2. INSTAGRAM_POST_IG_USER_MEDIA_PUBLISH
-   account: instagram_lovely-tolan
-   arguments: ig_user_id, creation_id from step 1, max_wait_seconds 180
-
-3. INSTAGRAM_POST_IG_MEDIA_COMMENTS
-   account: instagram_lovely-tolan
-   arguments: ig_media_id from step 2, message = linkComment from manifest
+Follow mcpPublishSteps in content/state/pending-publish.json
 
 ## Step 3 — Mark posted
-Run:
   cd homevalue_content_system && node scripts/mark-pending-posted.mjs
-
-## Rules
-- B2B wholesale only — no public pricing
-- One category per Reel (6 products, carousel-style video)
-- 2 food Reels guaranteed per day — do not skip food when foodQuotaRemaining > 0
-- Do NOT open PRs or commit files
-- On failure: report which step failed and the error
-
-## Success reply
-- Category name (note if food)
-- Food quota status (e.g. "Food 2/2 today")
-- Instagram permalink (from INSTAGRAM_GET_IG_MEDIA)
-- Music track used
-- How many bad images were skipped (imageRejectedCount)
-- "✓ Done @hvhomevalue"
 ```
 
 ---
 
 ## Manual test (from Cursor agent chat)
 
-Say: **"Run prepare-reel and publish to @hvhomevalue via Composio MCP"**
+Say: **"Run prepare-post carousel and publish to @hvhomevalue"**
 
 Or locally:
 ```bash
 cd homevalue_content_system
-FULLVENDOR_TOKEN=your_token node scripts/prepare-reel.mjs
-# Then agent publishes via Composio MCP using the JSON output
+POST_FORMAT=carousel node scripts/prepare-post.mjs
+# or POST_FORMAT=single for one product image
 ```
 
 Test food-only pick:

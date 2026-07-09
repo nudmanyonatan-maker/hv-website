@@ -126,7 +126,7 @@ if (apiKey) {
     console.log('✓ Link in comments');
   }
 
-  markPosted(products.map((p) => p.productId));
+  markPosted(products.map((p) => p.productId), manifest.categoryId || products[0]?.categoryId);
   console.log('✓ Done @hvhomevalue');
 } else {
   console.error('Missing COMPOSIO_API_KEY');

@@ -32,4 +32,4 @@ if [[ -n "${COMPOSIO_API_KEY:-}" ]]; then
 fi
 
 echo "✓ Secrets set. Trigger a test run:"
-echo "  gh workflow run \"Home Value Instagram Reels\""
+echo "  gh workflow run \"Home Value Instagram Posts\" -f format=carousel"

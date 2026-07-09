@@ -1,0 +1,59 @@
+name: Home Value Instagram Posts
+
+# 2 posts/day: carousel (10am ET) + single image (3pm ET)
+# Required: FULLVENDOR_TOKEN + CURSOR_API_KEY (or COMPOSIO_API_KEY fallback)
+
+on:
+  schedule:
+    - cron: '0 14 * * *'   # 10am ET — carousel
+    - cron: '0 19 * * *'   # 3pm ET — single image
+  workflow_dispatch:
+    inputs:
+      format:
+        description: Post format
+        required: true
+        default: carousel
+        type: choice
+        options:
+          - carousel
+          - single
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install system deps
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
+      - name: Install dependencies
+        working-directory: homevalue_content_system
+        run: npm ci
+
+      - name: Determine post format
+        id: fmt
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "format=${{ inputs.format }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.schedule }}" = "0 14 * * *" ]; then
+            echo "format=carousel" >> "$GITHUB_OUTPUT"
+          else
+            echo "format=single" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish post
+        working-directory: homevalue_content_system
+        env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+          COMPOSIO_API_KEY: ${{ secrets.COMPOSIO_API_KEY }}
+          FULLVENDOR_TOKEN: ${{ secrets.FULLVENDOR_TOKEN }}
+          POST_FORMAT: ${{ steps.fmt.outputs.format }}
+        run: node scripts/ci-publish.mjs

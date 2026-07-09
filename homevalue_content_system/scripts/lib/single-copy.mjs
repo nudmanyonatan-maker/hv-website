@@ -1,31 +1,26 @@
-/** Carousel copy — one category, cover + product slides + CTA. */
+/** Single-image post copy — one hero product. */
 
 import { cleanProductName, extractPackInfo, categoryName } from './copy-utils.mjs';
 
-export function buildCarouselCopy(products, catMap, brand) {
+export function buildSinglePostCopy(product, catMap, brand) {
   const siteUrl = brand.website;
   const site = brand.siteDisplay || siteUrl.replace(/^https?:\/\//, '');
-  const category = categoryName(catMap, products[0]?.categoryId);
-
-  const items = products.map((p) => ({
-    productId: p.productId,
-    name: cleanProductName(p.name),
-    pack: extractPackInfo(p.name),
-    category,
-    image: p.image,
-  }));
+  const category = categoryName(catMap, product.categoryId);
+  const name = cleanProductName(product.name);
+  const pack = extractPackInfo(product.name);
 
   return {
     category,
-    cover: {
-      title: category,
-      subtitle: 'Wholesale picks · Home Value',
-      swipe: 'Swipe →',
-      categories: category,
+    categoryId: product.categoryId,
+    product: {
+      productId: product.productId,
+      name,
+      pack,
+      category,
+      image: product.image,
     },
-    products: items,
     cta: {
-      line: 'Want to see more?',
+      line: 'Wholesale catalog',
       action: 'Link in comments 👇',
       url: site,
     },
@@ -33,13 +28,13 @@ export function buildCarouselCopy(products, catMap, brand) {
     caption: [
       '🏪 Wholesale only — for business owners',
       '',
+      `📦 ${name}`,
       `🏷️ ${category}`,
-      '',
-      ...items.map((i) => `📦 ${i.name}`),
+      pack ? `📐 ${pack}` : null,
       '',
       '👇 Link in comments for the full catalog',
       '',
       '#wholesale #homevalue #hvhomevalue',
-    ].join('\n'),
+    ].filter(Boolean).join('\n'),
   };
 }
