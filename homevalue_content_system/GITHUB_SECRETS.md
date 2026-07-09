@@ -44,7 +44,7 @@ CURSOR_API_KEY=your_cursor_key COMPOSIO_API_KEY=your_ak_key FULLVENDOR_TOKEN=you
 ## Test
 
 ```bash
-gh workflow run "Home Value Instagram Reels"
+gh workflow run "Home Value Instagram Posts" -f format=carousel
 ```
 
 Watch the run at **GitHub → Actions**. If using `CURSOR_API_KEY`, the log will show a link to the cloud agent run.

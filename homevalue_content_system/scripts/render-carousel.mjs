@@ -118,6 +118,8 @@ await browser.close();
 
 const manifest = {
   type: 'carousel',
+  category: copy.category,
+  categoryId: products[0]?.categoryId,
   productIds: products.map((p) => p.productId),
   products: copy.products,
   slides: slides.map((s, i) => ({

@@ -2,6 +2,7 @@
 content/posts/queue.json
 content/reels/*.mp4
 content/carousels/**/*.jpg
+content/single-posts/*.jpg
 content/tmp/
 content/state/pending-publish.json
 content/state/daily-food.json
