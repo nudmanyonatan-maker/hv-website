@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Home Value: your business in 1 page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&display=swap">
+<style>
+:root{--bg:#EFF1ED;--card:#fff;--ink:#111;--ink2:#3D4642;--mut:#6E7873;--rule:#DCE0D8;
+ --good:#15803D;--goodbg:#DCF5E4;--bad:#C0261F;--badbg:#FBE1DE;--dotoff:#C9D0CA}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101413;--card:#1A2020;--ink:#F0F3F0;--ink2:#C8D0CB;--mut:#8B9590;
+ --rule:#2C3433;--good:#4ADE80;--goodbg:#12301F;--bad:#FF8177;--badbg:#3A1917;--dotoff:#39423F}}
+:root[data-theme="dark"]{--bg:#101413;--card:#1A2020;--ink:#F0F3F0;--ink2:#C8D0CB;--mut:#8B9590;
+ --rule:#2C3433;--good:#4ADE80;--goodbg:#12301F;--bad:#FF8177;--badbg:#3A1917;--dotoff:#39423F}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Archivo,Helvetica,Arial,sans-serif;
+ font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.w{max-width:440px;margin:0 auto;padding:20px 14px 26px}
+
+.hd{text-align:center;padding:4px 0 14px}
+.hd .co{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);font-weight:700}
+.hd .big{font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:7px 0 2px}
+.hd .cap{font-size:16px;color:var(--ink2)}
+
+/* verdict */
+.vd{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:16px 16px 14px;margin-bottom:16px}
+.vd .vt{font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:700;margin-bottom:11px}
+.vl{display:flex;gap:11px;align-items:flex-start;margin-bottom:9px;font-size:17.5px;line-height:1.35}
+.vl:last-child{margin-bottom:0}
+.vi{flex:none;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+ font-size:14px;font-weight:800;margin-top:1px}
+.vi.g{background:var(--goodbg);color:var(--good)}
+.vi.r{background:var(--badbg);color:var(--bad)}
+
+.c{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:18px 16px;margin-bottom:14px}
+.tag{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:800;letter-spacing:.02em;
+ padding:5px 11px;border-radius:20px;margin-bottom:11px}
+.tag.g{background:var(--goodbg);color:var(--good)}
+.tag.r{background:var(--badbg);color:var(--bad)}
+h2{font-size:25px;line-height:1.2;font-weight:800;letter-spacing:-.02em;margin:0 0 12px}
+p{margin:0 0 9px;font-size:17px;color:var(--ink2);line-height:1.5}
+p.last{margin-bottom:0}
+b{color:var(--ink);font-weight:700}
+.note{font-size:15px;color:var(--mut);margin-top:9px}
+
+/* cost strip */
+.cost{background:var(--badbg);border-radius:9px;padding:12px 14px;margin:0 0 14px;text-align:center}
+.cost .cn{font-size:31px;font-weight:800;color:var(--bad);letter-spacing:-.03em;line-height:1.1}
+.cost .cl{font-size:14.5px;color:var(--ink2);font-weight:600;margin-top:2px}
+
+.years{display:flex;gap:12px;align-items:flex-end;margin:4px 0 12px}
+.yr{flex:1;text-align:center}
+.ybar{height:120px;display:flex;align-items:flex-end}
+.yfill{width:100%;background:var(--dotoff);border-radius:6px 6px 0 0}
+.yfill.best{background:var(--good)}
+.ylab{font-size:15px;color:var(--mut);margin-top:7px;font-weight:600}
+.ylab.b,.yval.b{color:var(--good)}
+.yval{font-size:15px;font-weight:800;color:var(--ink2)}
+
+.row{margin-bottom:12px}
+.rl{display:flex;justify-content:space-between;align-items:baseline;font-size:16px;margin-bottom:5px}
+.rl .nm{font-weight:700;color:var(--ink)}
+.rl .vv{font-weight:800;font-size:20px}
+.track{height:26px;background:var(--dotoff);border-radius:5px;overflow:hidden}
+.fill{height:100%;border-radius:5px}
+.fill.g{background:var(--good)} .fill.r{background:var(--bad)}
+.vg{color:var(--good)} .vr{color:var(--bad)}
+
+.hundred{display:flex;gap:14px;margin:2px 0 12px}
+.h1{flex:1;text-align:center;border-radius:10px;padding:13px 8px}
+.h1.a{background:var(--goodbg)} .h1.b{background:var(--badbg)}
+.h1 .t{font-size:14px;font-weight:700;color:var(--ink2);margin-bottom:4px}
+.h1 .m{font-size:40px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.h1.a .m{color:var(--good)} .h1.b .m{color:var(--bad)}
+.h1 .s{font-size:13.5px;color:var(--mut);margin-top:3px}
+
+.dots{display:flex;flex-wrap:wrap;gap:3px;margin:6px 0 12px}
+.d{width:9px;height:9px;border-radius:2px}
+.d.g{background:var(--good)} .d.r{background:var(--bad)}
+.key{display:flex;gap:16px;font-size:14.5px;color:var(--mut);margin-bottom:10px}
+.key span{display:flex;align-items:center;gap:6px}
+.key i{width:11px;height:11px;border-radius:2px;display:block}
+
+.todo{background:var(--card);border:2px solid var(--good);border-radius:12px;padding:18px 16px}
+.todo h2{margin-bottom:14px}
+.step{display:flex;gap:12px;margin-bottom:15px}
+.step:last-child{margin-bottom:0}
+.num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--good);color:var(--card);
+ font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center}
+.step .tx{font-size:17px;line-height:1.42;color:var(--ink)}
+.step .tx b{display:block;font-weight:700}
+.step .tx span{color:var(--mut);font-size:15px}
+.ft{text-align:center;font-size:13.5px;color:var(--mut);margin-top:16px;line-height:1.5}
+@media print{:root{--bg:#fff;--card:#fff;--ink:#000;--ink2:#222;--mut:#555;--rule:#bbb;
+ --good:#15803D;--bad:#C0261F;--goodbg:#eaf6ee;--badbg:#fbecea;--dotoff:#d5d5d5}
+ .c,.todo,.vd{break-inside:avoid}@page{margin:12mm}}
+</style>
+</head>
+<body>
+<div class="w">
+
+  <div class="hd">
+    <div class="co">Home Value</div>
+    <div class="big">$7.3 million</div>
+    <div class="cap">You sold this in 2 years.</div>
+  </div>
+
+  <div class="vd">
+    <div class="vt">In short</div>
+    <div class="vl"><span class="vi g">&#10003;</span><div>You sell <b>more than ever</b>.</div></div>
+    <div class="vl"><span class="vi r">&#33;</span><div>But you <b>keep less money</b> from each sale.</div></div>
+    <div class="vl"><span class="vi r">&#33;</span><div>And <b>many customers left</b>.</div></div>
+    <div class="vl"><span class="vi g">&#8595;</span><div>3 things to fix are at the bottom.</div></div>
+  </div>
+
+  <div class="c">
+    <span class="tag g">&#9650; GOOD NEWS</span>
+    <h2>2026 is your best year</h2>
+    <div class="years"><div class="yr"><div class="ybar"><div class="yfill" style="height:82%"></div></div><div class="ylab">2024</div><div class="yval">$303,172</div></div><div class="yr"><div class="ybar"><div class="yfill" style="height:65%"></div></div><div class="ylab">2025</div><div class="yval">$242,848</div></div><div class="yr"><div class="ybar"><div class="yfill best" style="height:100%"></div></div><div class="ylab b">2026</div><div class="yval b">$371,020</div></div></div>
+    <p class="note">Money you sell each month.</p>
+    <p class="last">You sell <b>more than before</b>. This is good.</p>
+  </div>
+
+  <div class="c">
+    <span class="tag r">&#9660; PROBLEM 1</span>
+    <h2>181 of 299 customers stopped buying</h2>
+    <div class="cost"><div class="cn">$1.2 million</div><div class="cl">lost every year</div></div>
+    <div class="key"><span><i class="d g" style="background:var(--good)"></i>Still buying</span>
+      <span><i class="d r" style="background:var(--bad)"></i>Stopped</span></div>
+    <div class="dots"><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d g"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i><i class="d r"></i></div>
+    <p class="last">30 of them were <b>big customers</b>. They bought steadily for months, then stopped.</p>
+  </div>
+
+  <div class="c">
+    <span class="tag r">&#9660; PROBLEM 2</span>
+    <h2>Half your sales go out under your price</h2>
+    <div class="cost"><div class="cn">$350,000</div><div class="cl">given away every year</div></div>
+    <div class="row"><div class="rl"><span class="nm">Sold cheaper than your price</span><span class="vv vr">47%</span></div>
+      <div class="track"><div class="fill r" style="width:47%"></div></div></div>
+    <p class="last"><b>47 sales out of 100</b> are cheaper than your own price list. Every worker gives a different price.</p>
+  </div>
+
+  <div class="c">
+    <span class="tag r">&#9660; PROBLEM 3</span>
+    <h2>You keep $5 less from every $100</h2>
+    <div class="cost"><div class="cn">$220,000</div><div class="cl">lost every year</div></div>
+    <div class="hundred">
+      <div class="h1 a"><div class="t">Before</div><div class="m">$41</div><div class="s">from $100</div></div>
+      <div class="h1 b"><div class="t">Now</div><div class="m">$36</div><div class="s">from $100</div></div>
+    </div>
+    <p><b>Why?</b> You sell much more food now.</p>
+    <div class="row"><div class="rl"><span class="nm">Food, before</span><span class="vv">2%</span></div>
+      <div class="track"><div class="fill g" style="width:2%"></div></div></div>
+    <div class="row"><div class="rl"><span class="nm">Food, now</span><span class="vv vr">42%</span></div>
+      <div class="track"><div class="fill r" style="width:42%"></div></div></div>
+    <p class="note">How much of your sales is food.</p>
+    <div class="row" style="margin-top:14px"><div class="rl"><span class="nm">Pots and dishes give you</span><span class="vv vg">$43</span></div>
+      <div class="track"><div class="fill g" style="width:86%"></div></div></div>
+    <div class="row"><div class="rl"><span class="nm">Food gives you</span><span class="vv vr">$20</span></div>
+      <div class="track"><div class="fill r" style="width:40%"></div></div></div>
+    <p class="note">What you keep from every $100 you sell.</p>
+    <p class="last">Food sells fast. But food <b>does not make money</b>.</p>
+  </div>
+
+  <div class="todo">
+    <h2>What to do</h2>
+    <div class="step"><div class="num">1</div><div class="tx"><b>Call the 30 big customers who stopped.</b>
+      <span>Ask them why. This is $1.2 million a year.</span></div></div>
+    <div class="step"><div class="num">2</div><div class="tx"><b>Put a lowest price in the computer.</b>
+      <span>Then nobody can sell cheaper than it. This is $350,000 a year.</span></div></div>
+    <div class="step"><div class="num">3</div><div class="tx"><b>Raise the price of food. Or sell more pots and dishes.</b>
+      <span>Food gives you $20. Pots and dishes give you $43.</span></div></div>
+  </div>
+
+  <div class="ft">From your own order system.<br>1,804 orders, August 2024 to August 2026.</div>
+</div>
+</body>
+</html>
